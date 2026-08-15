@@ -1,0 +1,1165 @@
+{
+  "generatedBy": "scripts/build-surahs.mjs",
+  "source": "https://raw.githubusercontent.com/risan/quran-json/main/dist/chapters/bn/index.json",
+  "surahs": [
+    {
+      "number": 1,
+      "bn": "আল-ফাতিহা",
+      "arabic": "الفاتحة",
+      "translit": "Al-Fatihah",
+      "meaningBn": "সূচনা",
+      "revelation": "মক্কী",
+      "ayahCount": 7,
+      "aliases": [
+        "উম্মুল কিতাব"
+      ]
+    },
+    {
+      "number": 2,
+      "bn": "আল-বাকারা",
+      "arabic": "البقرة",
+      "translit": "Al-Baqarah",
+      "meaningBn": "বকনা-বাছুর",
+      "revelation": "মাদানী",
+      "ayahCount": 286,
+      "aliases": []
+    },
+    {
+      "number": 3,
+      "bn": "আলে ইমরান",
+      "arabic": "آل عمران",
+      "translit": "Ali 'Imran",
+      "meaningBn": "ইমরানের পরিবার",
+      "revelation": "মাদানী",
+      "ayahCount": 200,
+      "aliases": []
+    },
+    {
+      "number": 4,
+      "bn": "আন-নিসা",
+      "arabic": "النساء",
+      "translit": "An-Nisa",
+      "meaningBn": "নারী",
+      "revelation": "মাদানী",
+      "ayahCount": 176,
+      "aliases": []
+    },
+    {
+      "number": 5,
+      "bn": "আল-মায়িদা",
+      "arabic": "المائدة",
+      "translit": "Al-Ma'idah",
+      "meaningBn": "খাদ্য পরিবেশিত টেবিল",
+      "revelation": "মাদানী",
+      "ayahCount": 120,
+      "aliases": []
+    },
+    {
+      "number": 6,
+      "bn": "আল-আন'আম",
+      "arabic": "الأنعام",
+      "translit": "Al-An'am",
+      "meaningBn": "গৃহপালিত পশু",
+      "revelation": "মক্কী",
+      "ayahCount": 165,
+      "aliases": []
+    },
+    {
+      "number": 7,
+      "bn": "আল-আ'রাফ",
+      "arabic": "الأعراف",
+      "translit": "Al-A'raf",
+      "meaningBn": "উচু স্থান",
+      "revelation": "মক্কী",
+      "ayahCount": 206,
+      "aliases": []
+    },
+    {
+      "number": 8,
+      "bn": "আল-আনফাল",
+      "arabic": "الأنفال",
+      "translit": "Al-Anfal",
+      "meaningBn": "যুদ্ধ-লব্ধ ধনসম্পদ",
+      "revelation": "মাদানী",
+      "ayahCount": 75,
+      "aliases": []
+    },
+    {
+      "number": 9,
+      "bn": "আত-তাওবা",
+      "arabic": "التوبة",
+      "translit": "At-Tawbah",
+      "meaningBn": "অনুশোচনা",
+      "revelation": "মাদানী",
+      "ayahCount": 129,
+      "aliases": []
+    },
+    {
+      "number": 10,
+      "bn": "ইউনুস",
+      "arabic": "يونس",
+      "translit": "Yunus",
+      "meaningBn": "নবী ইউনুস",
+      "revelation": "মক্কী",
+      "ayahCount": 109,
+      "aliases": []
+    },
+    {
+      "number": 11,
+      "bn": "হুদ",
+      "arabic": "هود",
+      "translit": "Hud",
+      "meaningBn": "নবী হুদ",
+      "revelation": "মক্কী",
+      "ayahCount": 123,
+      "aliases": []
+    },
+    {
+      "number": 12,
+      "bn": "ইউসুফ",
+      "arabic": "يوسف",
+      "translit": "Yusuf",
+      "meaningBn": "নবী ইউসুফ",
+      "revelation": "মক্কী",
+      "ayahCount": 111,
+      "aliases": []
+    },
+    {
+      "number": 13,
+      "bn": "আর-রা'দ",
+      "arabic": "الرعد",
+      "translit": "Ar-Ra'd",
+      "meaningBn": "বজ্রপাত",
+      "revelation": "মাদানী",
+      "ayahCount": 43,
+      "aliases": []
+    },
+    {
+      "number": 14,
+      "bn": "ইবরাহীম",
+      "arabic": "ابراهيم",
+      "translit": "Ibrahim",
+      "meaningBn": "নবী ইবরাহীম",
+      "revelation": "মক্কী",
+      "ayahCount": 52,
+      "aliases": []
+    },
+    {
+      "number": 15,
+      "bn": "আল-হিজর",
+      "arabic": "الحجر",
+      "translit": "Al-Hijr",
+      "meaningBn": "পাথুরে পাহাড়",
+      "revelation": "মক্কী",
+      "ayahCount": 99,
+      "aliases": []
+    },
+    {
+      "number": 16,
+      "bn": "আন-নাহল",
+      "arabic": "النحل",
+      "translit": "An-Nahl",
+      "meaningBn": "মৌমাছি",
+      "revelation": "মক্কী",
+      "ayahCount": 128,
+      "aliases": []
+    },
+    {
+      "number": 17,
+      "bn": "আল-ইসরা",
+      "arabic": "الإسراء",
+      "translit": "Al-Isra",
+      "meaningBn": "ইহুদি জাতি",
+      "revelation": "মক্কী",
+      "ayahCount": 111,
+      "aliases": [
+        "বনী ইসরাঈল"
+      ]
+    },
+    {
+      "number": 18,
+      "bn": "আল-কাহফ",
+      "arabic": "الكهف",
+      "translit": "Al-Kahf",
+      "meaningBn": "গুহা",
+      "revelation": "মক্কী",
+      "ayahCount": 110,
+      "aliases": []
+    },
+    {
+      "number": 19,
+      "bn": "মারইয়াম",
+      "arabic": "مريم",
+      "translit": "Maryam",
+      "meaningBn": "মারইয়াম (ঈসা নবীর মা)",
+      "revelation": "মক্কী",
+      "ayahCount": 98,
+      "aliases": []
+    },
+    {
+      "number": 20,
+      "bn": "ত্ব-হা",
+      "arabic": "طه",
+      "translit": "Taha",
+      "meaningBn": "ত়া হা",
+      "revelation": "মক্কী",
+      "ayahCount": 135,
+      "aliases": []
+    },
+    {
+      "number": 21,
+      "bn": "আল-আম্বিয়া",
+      "arabic": "الأنبياء",
+      "translit": "Al-Anbya",
+      "meaningBn": "নবীগণ",
+      "revelation": "মক্কী",
+      "ayahCount": 112,
+      "aliases": []
+    },
+    {
+      "number": 22,
+      "bn": "আল-হাজ্জ",
+      "arabic": "الحج",
+      "translit": "Al-Hajj",
+      "meaningBn": "হ়াজ্জ",
+      "revelation": "মাদানী",
+      "ayahCount": 78,
+      "aliases": []
+    },
+    {
+      "number": 23,
+      "bn": "আল-মু'মিনূন",
+      "arabic": "المؤمنون",
+      "translit": "Al-Mu'minun",
+      "meaningBn": "বিশ্বাসী",
+      "revelation": "মক্কী",
+      "ayahCount": 118,
+      "aliases": []
+    },
+    {
+      "number": 24,
+      "bn": "আন-নূর",
+      "arabic": "النور",
+      "translit": "An-Nur",
+      "meaningBn": "আলো",
+      "revelation": "মাদানী",
+      "ayahCount": 64,
+      "aliases": []
+    },
+    {
+      "number": 25,
+      "bn": "আল-ফুরকান",
+      "arabic": "الفرقان",
+      "translit": "Al-Furqan",
+      "meaningBn": "মানদণ্ড",
+      "revelation": "মক্কী",
+      "ayahCount": 77,
+      "aliases": []
+    },
+    {
+      "number": 26,
+      "bn": "আশ-শু'আরা",
+      "arabic": "الشعراء",
+      "translit": "Ash-Shu'ara",
+      "meaningBn": "কবি",
+      "revelation": "মক্কী",
+      "ayahCount": 227,
+      "aliases": []
+    },
+    {
+      "number": 27,
+      "bn": "আন-নামল",
+      "arabic": "النمل",
+      "translit": "An-Naml",
+      "meaningBn": "পিঁপড়া",
+      "revelation": "মক্কী",
+      "ayahCount": 93,
+      "aliases": []
+    },
+    {
+      "number": 28,
+      "bn": "আল-কাসাস",
+      "arabic": "القصص",
+      "translit": "Al-Qasas",
+      "meaningBn": "কাহিনি",
+      "revelation": "মক্কী",
+      "ayahCount": 88,
+      "aliases": []
+    },
+    {
+      "number": 29,
+      "bn": "আল-আনকাবূত",
+      "arabic": "العنكبوت",
+      "translit": "Al-'Ankabut",
+      "meaningBn": "মাকড়শা",
+      "revelation": "মক্কী",
+      "ayahCount": 69,
+      "aliases": []
+    },
+    {
+      "number": 30,
+      "bn": "আর-রূম",
+      "arabic": "الروم",
+      "translit": "Ar-Rum",
+      "meaningBn": "রোমান জাতি",
+      "revelation": "মক্কী",
+      "ayahCount": 60,
+      "aliases": []
+    },
+    {
+      "number": 31,
+      "bn": "লুকমান",
+      "arabic": "لقمان",
+      "translit": "Luqman",
+      "meaningBn": "এক জ্ঞানী ব্যাক্তি",
+      "revelation": "মক্কী",
+      "ayahCount": 34,
+      "aliases": []
+    },
+    {
+      "number": 32,
+      "bn": "আস-সাজদা",
+      "arabic": "السجدة",
+      "translit": "As-Sajdah",
+      "meaningBn": "সিজদা",
+      "revelation": "মক্কী",
+      "ayahCount": 30,
+      "aliases": []
+    },
+    {
+      "number": 33,
+      "bn": "আল-আহযাব",
+      "arabic": "الأحزاب",
+      "translit": "Al-Ahzab",
+      "meaningBn": "জোট",
+      "revelation": "মাদানী",
+      "ayahCount": 73,
+      "aliases": []
+    },
+    {
+      "number": 34,
+      "bn": "সাবা",
+      "arabic": "سبإ",
+      "translit": "Saba",
+      "meaningBn": "রানী সাবা/শেবা",
+      "revelation": "মক্কী",
+      "ayahCount": 54,
+      "aliases": []
+    },
+    {
+      "number": 35,
+      "bn": "ফাতির",
+      "arabic": "فاطر",
+      "translit": "Fatir",
+      "meaningBn": "আদি স্রষ্টা",
+      "revelation": "মক্কী",
+      "ayahCount": 45,
+      "aliases": []
+    },
+    {
+      "number": 36,
+      "bn": "ইয়াসীন",
+      "arabic": "يس",
+      "translit": "Ya-Sin",
+      "meaningBn": "ইয়াসীন",
+      "revelation": "মক্কী",
+      "ayahCount": 83,
+      "aliases": [
+        "ইয়া-সীন"
+      ]
+    },
+    {
+      "number": 37,
+      "bn": "আস-সাফফাত",
+      "arabic": "الصافات",
+      "translit": "As-Saffat",
+      "meaningBn": "সারিবদ্ধভাবে দাঁড়ানো",
+      "revelation": "মক্কী",
+      "ayahCount": 182,
+      "aliases": []
+    },
+    {
+      "number": 38,
+      "bn": "সোয়াদ",
+      "arabic": "ص",
+      "translit": "Sad",
+      "meaningBn": "আরবি বর্ণ সাদ",
+      "revelation": "মক্কী",
+      "ayahCount": 88,
+      "aliases": []
+    },
+    {
+      "number": 39,
+      "bn": "আয-যুমার",
+      "arabic": "الزمر",
+      "translit": "Az-Zumar",
+      "meaningBn": "দলবদ্ধ জনতা",
+      "revelation": "মক্কী",
+      "ayahCount": 75,
+      "aliases": []
+    },
+    {
+      "number": 40,
+      "bn": "গাফির",
+      "arabic": "غافر",
+      "translit": "Ghafir",
+      "meaningBn": "ক্ষমাকারী",
+      "revelation": "মক্কী",
+      "ayahCount": 85,
+      "aliases": [
+        "আল-মু'মিন"
+      ]
+    },
+    {
+      "number": 41,
+      "bn": "ফুসসিলাত",
+      "arabic": "فصلت",
+      "translit": "Fussilat",
+      "meaningBn": "সুস্পষ্ট বিবরণ",
+      "revelation": "মক্কী",
+      "ayahCount": 54,
+      "aliases": [
+        "হা-মীম সাজদা"
+      ]
+    },
+    {
+      "number": 42,
+      "bn": "আশ-শূরা",
+      "arabic": "الشورى",
+      "translit": "Ash-Shuraa",
+      "meaningBn": "পরামর্শ",
+      "revelation": "মক্কী",
+      "ayahCount": 53,
+      "aliases": []
+    },
+    {
+      "number": 43,
+      "bn": "আয-যুখরুফ",
+      "arabic": "الزخرف",
+      "translit": "Az-Zukhruf",
+      "meaningBn": "সোনাদানা",
+      "revelation": "মক্কী",
+      "ayahCount": 89,
+      "aliases": []
+    },
+    {
+      "number": 44,
+      "bn": "আদ-দুখান",
+      "arabic": "الدخان",
+      "translit": "Ad-Dukhan",
+      "meaningBn": "ধোঁয়া",
+      "revelation": "মক্কী",
+      "ayahCount": 59,
+      "aliases": []
+    },
+    {
+      "number": 45,
+      "bn": "আল-জাসিয়া",
+      "arabic": "الجاثية",
+      "translit": "Al-Jathiyah",
+      "meaningBn": "নতজানু",
+      "revelation": "মক্কী",
+      "ayahCount": 37,
+      "aliases": []
+    },
+    {
+      "number": 46,
+      "bn": "আল-আহকাফ",
+      "arabic": "الأحقاف",
+      "translit": "Al-Ahqaf",
+      "meaningBn": "বালুর পাহাড়",
+      "revelation": "মক্কী",
+      "ayahCount": 35,
+      "aliases": []
+    },
+    {
+      "number": 47,
+      "bn": "মুহাম্মাদ",
+      "arabic": "محمد",
+      "translit": "Muhammad",
+      "meaningBn": "নবী মুহাম্মদ",
+      "revelation": "মাদানী",
+      "ayahCount": 38,
+      "aliases": []
+    },
+    {
+      "number": 48,
+      "bn": "আল-ফাতহ",
+      "arabic": "الفتح",
+      "translit": "Al-Fath",
+      "meaningBn": "বিজয়",
+      "revelation": "মাদানী",
+      "ayahCount": 29,
+      "aliases": []
+    },
+    {
+      "number": 49,
+      "bn": "আল-হুজুরাত",
+      "arabic": "الحجرات",
+      "translit": "Al-Hujurat",
+      "meaningBn": "আবাস",
+      "revelation": "মাদানী",
+      "ayahCount": 18,
+      "aliases": []
+    },
+    {
+      "number": 50,
+      "bn": "ক্বাফ",
+      "arabic": "ق",
+      "translit": "Qaf",
+      "meaningBn": "কাফ",
+      "revelation": "মক্কী",
+      "ayahCount": 45,
+      "aliases": []
+    },
+    {
+      "number": 51,
+      "bn": "আয-যারিয়াত",
+      "arabic": "الذاريات",
+      "translit": "Adh-Dhariyat",
+      "meaningBn": "বিক্ষেপকারী বাতাস",
+      "revelation": "মক্কী",
+      "ayahCount": 60,
+      "aliases": []
+    },
+    {
+      "number": 52,
+      "bn": "আত-তূর",
+      "arabic": "الطور",
+      "translit": "At-Tur",
+      "meaningBn": "পাহাড়",
+      "revelation": "মক্কী",
+      "ayahCount": 49,
+      "aliases": []
+    },
+    {
+      "number": 53,
+      "bn": "আন-নাজম",
+      "arabic": "النجم",
+      "translit": "An-Najm",
+      "meaningBn": "তারা",
+      "revelation": "মক্কী",
+      "ayahCount": 62,
+      "aliases": []
+    },
+    {
+      "number": 54,
+      "bn": "আল-ক্বামার",
+      "arabic": "القمر",
+      "translit": "Al-Qamar",
+      "meaningBn": "চাঁদ",
+      "revelation": "মক্কী",
+      "ayahCount": 55,
+      "aliases": []
+    },
+    {
+      "number": 55,
+      "bn": "আর-রাহমান",
+      "arabic": "الرحمن",
+      "translit": "Ar-Rahman",
+      "meaningBn": "পরম করুণাময়",
+      "revelation": "মাদানী",
+      "ayahCount": 78,
+      "aliases": []
+    },
+    {
+      "number": 56,
+      "bn": "আল-ওয়াকিয়া",
+      "arabic": "الواقعة",
+      "translit": "Al-Waqi'ah",
+      "meaningBn": "নিশ্চিত ঘটনা",
+      "revelation": "মক্কী",
+      "ayahCount": 96,
+      "aliases": []
+    },
+    {
+      "number": 57,
+      "bn": "আল-হাদীদ",
+      "arabic": "الحديد",
+      "translit": "Al-Hadid",
+      "meaningBn": "লোহা",
+      "revelation": "মাদানী",
+      "ayahCount": 29,
+      "aliases": []
+    },
+    {
+      "number": 58,
+      "bn": "আল-মুজাদালা",
+      "arabic": "المجادلة",
+      "translit": "Al-Mujadila",
+      "meaningBn": "অনুযোগকারিণী",
+      "revelation": "মাদানী",
+      "ayahCount": 22,
+      "aliases": []
+    },
+    {
+      "number": 59,
+      "bn": "আল-হাশর",
+      "arabic": "الحشر",
+      "translit": "Al-Hashr",
+      "meaningBn": "সমাবেশ",
+      "revelation": "মাদানী",
+      "ayahCount": 24,
+      "aliases": []
+    },
+    {
+      "number": 60,
+      "bn": "আল-মুমতাহিনা",
+      "arabic": "الممتحنة",
+      "translit": "Al-Mumtahanah",
+      "meaningBn": "নারী, যাকে পরীক্ষা করা হবে",
+      "revelation": "মাদানী",
+      "ayahCount": 13,
+      "aliases": []
+    },
+    {
+      "number": 61,
+      "bn": "আস-সাফ",
+      "arabic": "الصف",
+      "translit": "As-Saf",
+      "meaningBn": "সারিবদ্ধ সৈন্যদল",
+      "revelation": "মাদানী",
+      "ayahCount": 14,
+      "aliases": []
+    },
+    {
+      "number": 62,
+      "bn": "আল-জুমু'আ",
+      "arabic": "الجمعة",
+      "translit": "Al-Jumu'ah",
+      "meaningBn": "সম্মেলন/শুক্রবার",
+      "revelation": "মাদানী",
+      "ayahCount": 11,
+      "aliases": []
+    },
+    {
+      "number": 63,
+      "bn": "আল-মুনাফিকূন",
+      "arabic": "المنافقون",
+      "translit": "Al-Munafiqun",
+      "meaningBn": "ভণ্ড বিশ্বাসী",
+      "revelation": "মাদানী",
+      "ayahCount": 11,
+      "aliases": []
+    },
+    {
+      "number": 64,
+      "bn": "আত-তাগাবুন",
+      "arabic": "التغابن",
+      "translit": "At-Taghabun",
+      "meaningBn": "মোহ অপসারণ",
+      "revelation": "মাদানী",
+      "ayahCount": 18,
+      "aliases": []
+    },
+    {
+      "number": 65,
+      "bn": "আত-তালাক",
+      "arabic": "الطلاق",
+      "translit": "At-Talaq",
+      "meaningBn": "তালাক",
+      "revelation": "মাদানী",
+      "ayahCount": 12,
+      "aliases": []
+    },
+    {
+      "number": 66,
+      "bn": "আত-তাহরীম",
+      "arabic": "التحريم",
+      "translit": "At-Tahrim",
+      "meaningBn": "নিষিদ্ধকরণ",
+      "revelation": "মাদানী",
+      "ayahCount": 12,
+      "aliases": []
+    },
+    {
+      "number": 67,
+      "bn": "আল-মুলক",
+      "arabic": "الملك",
+      "translit": "Al-Mulk",
+      "meaningBn": "সার্বভৌম কর্তৃত্ব",
+      "revelation": "মক্কী",
+      "ayahCount": 30,
+      "aliases": []
+    },
+    {
+      "number": 68,
+      "bn": "আল-ক্বলম",
+      "arabic": "القلم",
+      "translit": "Al-Qalam",
+      "meaningBn": "কলম",
+      "revelation": "মক্কী",
+      "ayahCount": 52,
+      "aliases": []
+    },
+    {
+      "number": 69,
+      "bn": "আল-হাক্কাহ",
+      "arabic": "الحاقة",
+      "translit": "Al-Haqqah",
+      "meaningBn": "নিশ্চিত সত্য",
+      "revelation": "মক্কী",
+      "ayahCount": 52,
+      "aliases": []
+    },
+    {
+      "number": 70,
+      "bn": "আল-মা'আরিজ",
+      "arabic": "المعارج",
+      "translit": "Al-Ma'arij",
+      "meaningBn": "উন্নয়নের সোপান",
+      "revelation": "মক্কী",
+      "ayahCount": 44,
+      "aliases": []
+    },
+    {
+      "number": 71,
+      "bn": "নূহ",
+      "arabic": "نوح",
+      "translit": "Nuh",
+      "meaningBn": "নবী নূহ",
+      "revelation": "মক্কী",
+      "ayahCount": 28,
+      "aliases": []
+    },
+    {
+      "number": 72,
+      "bn": "আল-জিন",
+      "arabic": "الجن",
+      "translit": "Al-Jinn",
+      "meaningBn": "জিন সম্প্রদায়",
+      "revelation": "মক্কী",
+      "ayahCount": 28,
+      "aliases": []
+    },
+    {
+      "number": 73,
+      "bn": "আল-মুযযাম্মিল",
+      "arabic": "المزمل",
+      "translit": "Al-Muzzammil",
+      "meaningBn": "বস্ত্রাচ্ছাদনকারী",
+      "revelation": "মক্কী",
+      "ayahCount": 20,
+      "aliases": []
+    },
+    {
+      "number": 74,
+      "bn": "আল-মুদ্দাসসির",
+      "arabic": "المدثر",
+      "translit": "Al-Muddaththir",
+      "meaningBn": "পোশাক পরিহিত",
+      "revelation": "মক্কী",
+      "ayahCount": 56,
+      "aliases": []
+    },
+    {
+      "number": 75,
+      "bn": "আল-ক্বিয়ামাহ",
+      "arabic": "القيامة",
+      "translit": "Al-Qiyamah",
+      "meaningBn": "পুনরুত্থান",
+      "revelation": "মক্কী",
+      "ayahCount": 40,
+      "aliases": []
+    },
+    {
+      "number": 76,
+      "bn": "আল-ইনসান",
+      "arabic": "الانسان",
+      "translit": "Al-Insan",
+      "meaningBn": "মানবজাতি",
+      "revelation": "মাদানী",
+      "ayahCount": 31,
+      "aliases": [
+        "আদ-দাহর"
+      ]
+    },
+    {
+      "number": 77,
+      "bn": "আল-মুরসালাত",
+      "arabic": "المرسلات",
+      "translit": "Al-Mursalat",
+      "meaningBn": "প্রেরিত পুরুষ",
+      "revelation": "মক্কী",
+      "ayahCount": 50,
+      "aliases": []
+    },
+    {
+      "number": 78,
+      "bn": "আন-নাবা",
+      "arabic": "النبإ",
+      "translit": "An-Naba",
+      "meaningBn": "মহাসংবাদ",
+      "revelation": "মক্কী",
+      "ayahCount": 40,
+      "aliases": []
+    },
+    {
+      "number": 79,
+      "bn": "আন-নাযি'আত",
+      "arabic": "النازعات",
+      "translit": "An-Nazi'at",
+      "meaningBn": "প্রচেষ্টাকারী",
+      "revelation": "মক্কী",
+      "ayahCount": 46,
+      "aliases": []
+    },
+    {
+      "number": 80,
+      "bn": "আবাসা",
+      "arabic": "عبس",
+      "translit": "'Abasa",
+      "meaningBn": "সে ভ্রু কুঁচকালো",
+      "revelation": "মক্কী",
+      "ayahCount": 42,
+      "aliases": []
+    },
+    {
+      "number": 81,
+      "bn": "আত-তাকভীর",
+      "arabic": "التكوير",
+      "translit": "At-Takwir",
+      "meaningBn": "অন্ধকারাচ্ছন্ন",
+      "revelation": "মক্কী",
+      "ayahCount": 29,
+      "aliases": []
+    },
+    {
+      "number": 82,
+      "bn": "আল-ইনফিতার",
+      "arabic": "الإنفطار",
+      "translit": "Al-Infitar",
+      "meaningBn": "বিদীর্ণ করা",
+      "revelation": "মক্কী",
+      "ayahCount": 19,
+      "aliases": []
+    },
+    {
+      "number": 83,
+      "bn": "আল-মুতাফফিফীন",
+      "arabic": "المطففين",
+      "translit": "Al-Mutaffifin",
+      "meaningBn": "প্রতারণা করা",
+      "revelation": "মক্কী",
+      "ayahCount": 36,
+      "aliases": []
+    },
+    {
+      "number": 84,
+      "bn": "আল-ইনশিকাক",
+      "arabic": "الإنشقاق",
+      "translit": "Al-Inshiqaq",
+      "meaningBn": "খণ্ড-বিখণ্ডকরণ",
+      "revelation": "মক্কী",
+      "ayahCount": 25,
+      "aliases": []
+    },
+    {
+      "number": 85,
+      "bn": "আল-বুরূজ",
+      "arabic": "البروج",
+      "translit": "Al-Buruj",
+      "meaningBn": "নক্ষত্রপুঞ্জ",
+      "revelation": "মক্কী",
+      "ayahCount": 22,
+      "aliases": []
+    },
+    {
+      "number": 86,
+      "bn": "আত-তারিক",
+      "arabic": "الطارق",
+      "translit": "At-Tariq",
+      "meaningBn": "রাতের আগন্তুক",
+      "revelation": "মক্কী",
+      "ayahCount": 17,
+      "aliases": []
+    },
+    {
+      "number": 87,
+      "bn": "আল-আ'লা",
+      "arabic": "الأعلى",
+      "translit": "Al-A'la",
+      "meaningBn": "সর্বোন্নত",
+      "revelation": "মক্কী",
+      "ayahCount": 19,
+      "aliases": []
+    },
+    {
+      "number": 88,
+      "bn": "আল-গাশিয়া",
+      "arabic": "الغاشية",
+      "translit": "Al-Ghashiyah",
+      "meaningBn": "বিহ্বলকর ঘটনা",
+      "revelation": "মক্কী",
+      "ayahCount": 26,
+      "aliases": []
+    },
+    {
+      "number": 89,
+      "bn": "আল-ফাজর",
+      "arabic": "الفجر",
+      "translit": "Al-Fajr",
+      "meaningBn": "ভোরবেলা",
+      "revelation": "মক্কী",
+      "ayahCount": 30,
+      "aliases": []
+    },
+    {
+      "number": 90,
+      "bn": "আল-বালাদ",
+      "arabic": "البلد",
+      "translit": "Al-Balad",
+      "meaningBn": "নগর",
+      "revelation": "মক্কী",
+      "ayahCount": 20,
+      "aliases": []
+    },
+    {
+      "number": 91,
+      "bn": "আশ-শামস",
+      "arabic": "الشمس",
+      "translit": "Ash-Shams",
+      "meaningBn": "সূর্য",
+      "revelation": "মক্কী",
+      "ayahCount": 15,
+      "aliases": []
+    },
+    {
+      "number": 92,
+      "bn": "আল-লাইল",
+      "arabic": "الليل",
+      "translit": "Al-Layl",
+      "meaningBn": "রাত",
+      "revelation": "মক্কী",
+      "ayahCount": 21,
+      "aliases": []
+    },
+    {
+      "number": 93,
+      "bn": "আদ-দুহা",
+      "arabic": "الضحى",
+      "translit": "Ad-Duhaa",
+      "meaningBn": "পূর্বাহ্নের সুর্যকিরণ",
+      "revelation": "মক্কী",
+      "ayahCount": 11,
+      "aliases": []
+    },
+    {
+      "number": 94,
+      "bn": "আশ-শারহ",
+      "arabic": "الشرح",
+      "translit": "Ash-Sharh",
+      "meaningBn": "বক্ষ প্রশস্তকরণ",
+      "revelation": "মক্কী",
+      "ayahCount": 8,
+      "aliases": [
+        "আলাম নাশরাহ",
+        "আল-ইনশিরাহ"
+      ]
+    },
+    {
+      "number": 95,
+      "bn": "আত-তীন",
+      "arabic": "التين",
+      "translit": "At-Tin",
+      "meaningBn": "ডুমুর",
+      "revelation": "মক্কী",
+      "ayahCount": 8,
+      "aliases": []
+    },
+    {
+      "number": 96,
+      "bn": "আল-আলাক",
+      "arabic": "العلق",
+      "translit": "Al-'Alaq",
+      "meaningBn": "রক্তপিণ্ড",
+      "revelation": "মক্কী",
+      "ayahCount": 19,
+      "aliases": []
+    },
+    {
+      "number": 97,
+      "bn": "আল-ক্বদর",
+      "arabic": "القدر",
+      "translit": "Al-Qadr",
+      "meaningBn": "মহিমান্বিত",
+      "revelation": "মক্কী",
+      "ayahCount": 5,
+      "aliases": []
+    },
+    {
+      "number": 98,
+      "bn": "আল-বায়্যিনাহ",
+      "arabic": "البينة",
+      "translit": "Al-Bayyinah",
+      "meaningBn": "প্রমাণ",
+      "revelation": "মাদানী",
+      "ayahCount": 8,
+      "aliases": []
+    },
+    {
+      "number": 99,
+      "bn": "আয-যিলযাল",
+      "arabic": "الزلزلة",
+      "translit": "Az-Zalzalah",
+      "meaningBn": "ভূমিকম্প",
+      "revelation": "মাদানী",
+      "ayahCount": 8,
+      "aliases": []
+    },
+    {
+      "number": 100,
+      "bn": "আল-আদিয়াত",
+      "arabic": "العاديات",
+      "translit": "Al-'Adiyat",
+      "meaningBn": "অভিযানকারী",
+      "revelation": "মক্কী",
+      "ayahCount": 11,
+      "aliases": []
+    },
+    {
+      "number": 101,
+      "bn": "আল-ক্বারিয়াহ",
+      "arabic": "القارعة",
+      "translit": "Al-Qari'ah",
+      "meaningBn": "মহাসংকট",
+      "revelation": "মক্কী",
+      "ayahCount": 11,
+      "aliases": []
+    },
+    {
+      "number": 102,
+      "bn": "আত-তাকাসুর",
+      "arabic": "التكاثر",
+      "translit": "At-Takathur",
+      "meaningBn": "প্রাচুর্যের প্রতিযোগিতা",
+      "revelation": "মক্কী",
+      "ayahCount": 8,
+      "aliases": []
+    },
+    {
+      "number": 103,
+      "bn": "আল-আসর",
+      "arabic": "العصر",
+      "translit": "Al-'Asr",
+      "meaningBn": "সময়",
+      "revelation": "মক্কী",
+      "ayahCount": 3,
+      "aliases": []
+    },
+    {
+      "number": 104,
+      "bn": "আল-হুমাযাহ",
+      "arabic": "الهمزة",
+      "translit": "Al-Humazah",
+      "meaningBn": "পরনিন্দাকারী",
+      "revelation": "মক্কী",
+      "ayahCount": 9,
+      "aliases": []
+    },
+    {
+      "number": 105,
+      "bn": "আল-ফীল",
+      "arabic": "الفيل",
+      "translit": "Al-Fil",
+      "meaningBn": "হাতি",
+      "revelation": "মক্কী",
+      "ayahCount": 5,
+      "aliases": []
+    },
+    {
+      "number": 106,
+      "bn": "কুরাইশ",
+      "arabic": "قريش",
+      "translit": "Quraysh",
+      "meaningBn": "কুরাইশ গোত্র",
+      "revelation": "মক্কী",
+      "ayahCount": 4,
+      "aliases": []
+    },
+    {
+      "number": 107,
+      "bn": "আল-মা'ঊন",
+      "arabic": "الماعون",
+      "translit": "Al-Ma'un",
+      "meaningBn": "সাহায্য সহায়তা",
+      "revelation": "মক্কী",
+      "ayahCount": 7,
+      "aliases": []
+    },
+    {
+      "number": 108,
+      "bn": "আল-কাউসার",
+      "arabic": "الكوثر",
+      "translit": "Al-Kawthar",
+      "meaningBn": "কাউসার/প্রাচুর্য",
+      "revelation": "মক্কী",
+      "ayahCount": 3,
+      "aliases": []
+    },
+    {
+      "number": 109,
+      "bn": "আল-কাফিরূন",
+      "arabic": "الكافرون",
+      "translit": "Al-Kafirun",
+      "meaningBn": "অবিশ্বাসী",
+      "revelation": "মক্কী",
+      "ayahCount": 6,
+      "aliases": []
+    },
+    {
+      "number": 110,
+      "bn": "আন-নাসর",
+      "arabic": "النصر",
+      "translit": "An-Nasr",
+      "meaningBn": "সাহায্য",
+      "revelation": "মাদানী",
+      "ayahCount": 3,
+      "aliases": []
+    },
+    {
+      "number": 111,
+      "bn": "আল-মাসাদ",
+      "arabic": "المسد",
+      "translit": "Al-Masad",
+      "meaningBn": "খেজুরের পাকানো (রশি)",
+      "revelation": "মক্কী",
+      "ayahCount": 5,
+      "aliases": [
+        "আল-লাহাব"
+      ]
+    },
+    {
+      "number": 112,
+      "bn": "আল-ইখলাস",
+      "arabic": "الإخلاص",
+      "translit": "Al-Ikhlas",
+      "meaningBn": "আন্তরিকতা",
+      "revelation": "মক্কী",
+      "ayahCount": 4,
+      "aliases": [
+        "সূরা ইখলাস"
+      ]
+    },
+    {
+      "number": 113,
+      "bn": "আল-ফালাক",
+      "arabic": "الفلق",
+      "translit": "Al-Falaq",
+      "meaningBn": "নিশিভোর",
+      "revelation": "মক্কী",
+      "ayahCount": 5,
+      "aliases": []
+    },
+    {
+      "number": 114,
+      "bn": "আন-নাস",
+      "arabic": "الناس",
+      "translit": "An-Nas",
+      "meaningBn": "মানুষ জাতি",
+      "revelation": "মক্কী",
+      "ayahCount": 6,
+      "aliases": []
+    }
+  ]
+}

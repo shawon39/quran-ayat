@@ -1,0 +1,496 @@
+/* ============================================================
+   আয়াত — স্টাইলশিট
+   শুধুমাত্র লাইট মোড। পড়ার আরামকে সবার উপরে রাখা হয়েছে।
+   ============================================================ */
+
+:root {
+  /* কাগজের মতো উষ্ণ পটভূমি, চোখে কম ধাক্কা */
+  --paper:        #faf7f0;
+  --surface:      #ffffff;
+  --surface-alt:  #f4efe4;
+  --line:         #e5ddcc;
+  --line-soft:    #efe8da;
+
+  --ink:          #23201a;   /* মূল লেখা */
+  --ink-soft:     #5b5447;   /* গৌণ লেখা */
+  --ink-faint:    #8a8172;   /* লেবেল */
+
+  --green:        #1f6b4f;   /* প্রধান রঙ */
+  --green-deep:   #14503a;
+  --green-tint:   #e8f2ec;
+  --gold:         #a67c1a;   /* প্রিয় / তারকা */
+  --gold-tint:    #fdf4e0;
+
+  --radius:       14px;
+  --radius-sm:    9px;
+  --shadow:       0 1px 2px rgba(35,32,26,.05), 0 6px 20px rgba(35,32,26,.05);
+  --shadow-sm:    0 1px 2px rgba(35,32,26,.06);
+
+  --ui:    'Hind Siliguri', 'Noto Sans Bengali', 'SolaimanLipi', system-ui, sans-serif;
+  --prose: 'Tiro Bangla', 'Noto Serif Bengali', 'Hind Siliguri', 'SolaimanLipi', serif;
+  --arabic: 'Amiri Quran', 'Scheherazade New', 'Traditional Arabic', serif;
+
+  --wrap: 62rem;
+}
+
+* { box-sizing: border-box; }
+
+/* CSS-এ display দেওয়া থাকলেও hidden অ্যাট্রিবিউট যেন কাজ করে */
+[hidden] { display: none !important; }
+
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--ui);
+  font-size: 17px;
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+}
+
+.wrap { width: min(100% - 2rem, var(--wrap)); margin-inline: auto; }
+
+a { color: var(--green-deep); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+a:hover { color: var(--green); }
+
+:focus-visible { outline: 2px solid var(--green); outline-offset: 2px; border-radius: 4px; }
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+.skip-link {
+  position: absolute; left: -999px; top: .5rem; z-index: 100;
+  background: var(--green); color: #fff; padding: .6rem 1rem; border-radius: var(--radius-sm);
+}
+.skip-link:focus { left: 1rem; }
+
+/* ---------- হেডার ---------- */
+
+.site-header {
+  position: sticky; top: 0; z-index: 30;
+  background: rgba(250,247,240,.92);
+  backdrop-filter: saturate(1.4) blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+.header-inner {
+  display: grid;
+  grid-template-columns: auto minmax(0,1fr) auto;
+  align-items: center;
+  gap: 1rem;
+  padding: .7rem 0;
+}
+.brand { display: flex; align-items: center; gap: .6rem; text-decoration: none; color: inherit; }
+.brand-mark {
+  font-family: var(--arabic); font-size: 1.5rem; line-height: 1;
+  color: var(--green); background: var(--green-tint);
+  width: 2.5rem; height: 2.5rem; display: grid; place-items: center;
+  border-radius: 50%; padding-bottom: .15em;
+}
+.brand-text { display: flex; flex-direction: column; line-height: 1.15; }
+.brand-text strong { font-size: 1.2rem; font-weight: 700; letter-spacing: .01em; }
+.brand-text small { font-size: .74rem; color: var(--ink-faint); }
+
+.search { position: relative; display: flex; align-items: center; }
+.search-icon {
+  position: absolute; inset-inline-start: .75rem; width: 18px; height: 18px;
+  fill: none; stroke: var(--ink-faint); stroke-width: 2; stroke-linecap: round; pointer-events: none;
+}
+.search input {
+  flex: 1; min-width: 0;
+  font-family: var(--ui); font-size: .95rem; color: var(--ink);
+  padding: .6rem 5.6rem .6rem 2.4rem;
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: 999px; box-shadow: var(--shadow-sm);
+}
+.search input::placeholder { color: var(--ink-faint); }
+.search input:focus { border-color: var(--green); outline: none; box-shadow: 0 0 0 3px var(--green-tint); }
+.search button {
+  position: absolute; inset-inline-end: .3rem;
+  font-family: var(--ui); font-size: .85rem; font-weight: 600; color: #fff;
+  background: var(--green); border: 0; border-radius: 999px;
+  padding: .4rem 1rem; cursor: pointer;
+}
+.search button:hover { background: var(--green-deep); }
+
+.nav { display: flex; align-items: center; gap: .35rem; }
+.nav a {
+  font-size: .92rem; font-weight: 500; color: var(--ink-soft);
+  text-decoration: none; padding: .4rem .7rem; border-radius: var(--radius-sm);
+  white-space: nowrap;
+}
+.nav a:hover { background: var(--surface-alt); color: var(--ink); }
+.nav a[aria-current="page"] { background: var(--green-tint); color: var(--green-deep); font-weight: 600; }
+.fav-count {
+  display: inline-block; min-width: 1.35em; text-align: center;
+  font-size: .74rem; font-weight: 700; background: var(--gold-tint);
+  color: var(--gold); border-radius: 999px; padding: 0 .35em; margin-inline-start: .2em;
+}
+
+@media (max-width: 860px) {
+  .header-inner { grid-template-columns: 1fr auto; row-gap: .6rem; }
+  .search { grid-column: 1 / -1; order: 3; }
+  .brand-text small { display: none; }
+}
+
+/* ---------- সাধারণ টাইপোগ্রাফি ---------- */
+
+main { padding: 2rem 0 4rem; min-height: 60vh; }
+main:focus { outline: none; }
+
+h1, h2, h3 { font-family: var(--ui); line-height: 1.35; margin: 0 0 .5rem; letter-spacing: -.005em; }
+h1 { font-size: clamp(1.6rem, 1.2rem + 1.6vw, 2.1rem); font-weight: 700; }
+h2 { font-size: 1.28rem; font-weight: 600; }
+h3 { font-size: 1.05rem; font-weight: 600; }
+
+p { margin: 0 0 1rem; }
+
+.lede { font-size: 1.05rem; color: var(--ink-soft); max-width: 46rem; }
+.muted { color: var(--ink-faint); }
+
+.page-head { margin-bottom: 1.75rem; }
+.eyebrow {
+  display: inline-block; font-size: .75rem; font-weight: 600; letter-spacing: .08em;
+  text-transform: uppercase; color: var(--green); background: var(--green-tint);
+  padding: .2rem .6rem; border-radius: 999px; margin-bottom: .6rem;
+}
+
+.breadcrumb { font-size: .85rem; color: var(--ink-faint); margin-bottom: .75rem; }
+.breadcrumb a { color: var(--ink-soft); text-decoration: none; }
+.breadcrumb a:hover { text-decoration: underline; }
+.breadcrumb span { margin: 0 .4rem; }
+
+/* ---------- কার্ড ---------- */
+
+.card {
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: var(--radius); box-shadow: var(--shadow-sm);
+}
+
+.verse-list { display: grid; gap: .85rem; margin: 0; padding: 0; list-style: none; }
+
+.verse-card {
+  position: relative;
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: var(--radius); box-shadow: var(--shadow-sm);
+  padding: 1.1rem 1.25rem;
+  transition: border-color .15s ease, box-shadow .15s ease, transform .15s ease;
+}
+.verse-card:hover { border-color: #d8ccb2; box-shadow: var(--shadow); transform: translateY(-1px); }
+.verse-card-head { display: flex; align-items: baseline; gap: .6rem; flex-wrap: wrap; margin-bottom: .4rem; }
+.verse-card a.verse-link { text-decoration: none; color: inherit; }
+.verse-card a.verse-link::after { content: ''; position: absolute; inset: 0; border-radius: var(--radius); }
+.verse-card h2, .verse-card h3 { margin: 0; font-size: 1.05rem; }
+.verse-card .ref {
+  font-size: .8rem; font-weight: 600; color: var(--green-deep);
+  background: var(--green-tint); border-radius: 999px; padding: .1rem .55rem;
+}
+.verse-card .snippet {
+  font-family: var(--prose); font-size: .97rem; color: var(--ink-soft);
+  margin: .35rem 0 0; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+.verse-card .arabic-peek {
+  font-family: var(--arabic); direction: rtl; font-size: 1.15rem; line-height: 2;
+  color: var(--ink); margin: .3rem 0 .1rem;
+  display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden;
+}
+
+/* ---------- তারকা / প্রিয় ---------- */
+
+.star-btn {
+  position: relative; z-index: 1;
+  background: transparent; border: 1px solid var(--line); border-radius: 999px;
+  width: 2.1rem; height: 2.1rem; display: grid; place-items: center;
+  cursor: pointer; color: var(--ink-faint); flex: none;
+  transition: background .15s ease, color .15s ease, border-color .15s ease;
+}
+.star-btn svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linejoin: round; }
+.star-btn:hover { border-color: var(--gold); color: var(--gold); background: var(--gold-tint); }
+.star-btn[aria-pressed="true"] { color: var(--gold); border-color: var(--gold); background: var(--gold-tint); }
+.star-btn[aria-pressed="true"] svg { fill: currentColor; }
+.verse-card .star-btn { margin-inline-start: auto; }
+
+/* ---------- সূরা তালিকা ---------- */
+
+.surah-grid {
+  display: grid; gap: .6rem;
+  grid-template-columns: repeat(auto-fill, minmax(15.5rem, 1fr));
+  list-style: none; padding: 0; margin: 0;
+}
+.surah-item {
+  position: relative;
+  display: flex; align-items: center; gap: .75rem;
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: var(--radius-sm); padding: .65rem .8rem;
+  text-decoration: none; color: inherit;
+  transition: border-color .15s ease, background .15s ease;
+}
+.surah-item:hover { border-color: var(--green); background: var(--green-tint); }
+.surah-num {
+  flex: none; width: 2.1rem; height: 2.1rem; display: grid; place-items: center;
+  font-size: .8rem; font-weight: 600; color: var(--green-deep);
+  background: var(--green-tint); border-radius: 8px;
+}
+.surah-item:hover .surah-num { background: var(--surface); }
+.surah-body { min-width: 0; flex: 1; }
+.surah-name { display: block; font-weight: 600; font-size: .97rem; line-height: 1.35; }
+.surah-meta { display: block; font-size: .78rem; color: var(--ink-faint); }
+.surah-arabic { font-family: var(--arabic); font-size: 1.1rem; color: var(--ink-soft); flex: none; padding-bottom: .2em; }
+.surah-item.has-verses { border-color: #cfe0d5; }
+.surah-item .count-pill {
+  flex: none; font-size: .72rem; font-weight: 700; color: var(--green-deep);
+  background: var(--green-tint); border-radius: 999px; padding: .05rem .45rem;
+}
+
+/* ---------- ফিল্টার বার ---------- */
+
+.toolbar { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; margin-bottom: 1.25rem; }
+.chip {
+  font-family: var(--ui); font-size: .85rem; color: var(--ink-soft);
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: 999px; padding: .35rem .85rem; cursor: pointer; text-decoration: none;
+}
+.chip:hover { border-color: var(--green); color: var(--green-deep); }
+.chip[aria-pressed="true"], .chip.active { background: var(--green); border-color: var(--green); color: #fff; }
+.filter-input {
+  font-family: var(--ui); font-size: .9rem; padding: .45rem .8rem;
+  border: 1px solid var(--line); border-radius: 999px; background: var(--surface); color: var(--ink);
+  min-width: 12rem;
+}
+.filter-input:focus { border-color: var(--green); outline: none; box-shadow: 0 0 0 3px var(--green-tint); }
+
+/* ---------- আয়াত পাতা ---------- */
+
+.ayah-page { max-width: 46rem; }
+
+.ayah-hero {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 1.6rem 1.5rem 1.4rem;
+  margin-bottom: 1.5rem;
+}
+.ayah-hero-top { display: flex; align-items: flex-start; gap: .75rem; margin-bottom: 1rem; }
+.ayah-hero-top .titles { flex: 1; min-width: 0; }
+.ayah-title { font-size: 1.45rem; margin: 0 0 .2rem; }
+.ayah-ref { font-size: .9rem; color: var(--ink-faint); }
+
+.arabic {
+  font-family: var(--arabic); direction: rtl; text-align: right;
+  font-size: clamp(1.5rem, 1.1rem + 1.8vw, 2rem); line-height: 2.35;
+  color: var(--ink); margin: 0 0 1.1rem;
+  padding-bottom: 1.1rem; border-bottom: 1px solid var(--line-soft);
+}
+
+.uccharon {
+  font-family: var(--prose); font-size: 1rem; color: var(--ink-soft);
+  background: var(--surface-alt); border-radius: var(--radius-sm);
+  padding: .8rem 1rem; margin: 0 0 1.1rem;
+}
+.uccharon b { display: block; font-family: var(--ui); font-size: .74rem; font-weight: 600;
+  letter-spacing: .07em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: .25rem; }
+
+.translation { margin: 0 0 1rem; }
+.translation .label {
+  font-size: .74rem; font-weight: 600; letter-spacing: .07em; text-transform: uppercase;
+  color: var(--ink-faint); display: block; margin-bottom: .3rem;
+}
+.translation .text {
+  font-family: var(--prose); font-size: 1.14rem; line-height: 1.95; color: var(--ink);
+}
+.translation.secondary .text { font-size: 1rem; color: var(--ink-soft); }
+.translation + .translation { padding-top: .9rem; border-top: 1px dashed var(--line); }
+
+.ayah-actions { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1.2rem; padding-top: 1.1rem; border-top: 1px solid var(--line-soft); }
+.btn {
+  font-family: var(--ui); font-size: .87rem; font-weight: 500;
+  display: inline-flex; align-items: center; gap: .4rem;
+  background: var(--surface); color: var(--ink-soft);
+  border: 1px solid var(--line); border-radius: 999px;
+  padding: .4rem .9rem; cursor: pointer; text-decoration: none;
+}
+.btn:hover { border-color: var(--green); color: var(--green-deep); background: var(--green-tint); }
+.btn svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+/* বিভাগ */
+
+.section { margin: 0 0 1.4rem; }
+.section > h2 {
+  display: flex; align-items: center; gap: .55rem;
+  font-size: 1.14rem; margin-bottom: .7rem; color: var(--green-deep);
+}
+.section > h2::before {
+  content: ''; width: .3rem; height: 1.05em; border-radius: 3px;
+  background: var(--green); flex: none;
+}
+.section .body { font-family: var(--prose); font-size: 1.06rem; line-height: 1.95; }
+.section .body p { margin: 0 0 .9rem; }
+.section .body p:last-child { margin-bottom: 0; }
+.section .body em { font-style: italic; color: var(--green-deep); }
+.section .body strong { font-weight: 600; }
+
+.panel {
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: var(--radius); padding: 1.1rem 1.25rem;
+}
+
+/* শব্দে শব্দে অর্থ */
+.words { display: grid; gap: .5rem; grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr)); }
+.word {
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: var(--radius-sm); padding: .6rem .75rem; text-align: center;
+}
+.word .ar { font-family: var(--arabic); direction: rtl; font-size: 1.3rem; line-height: 1.9; display: block; }
+.word .bn { font-family: var(--prose); font-size: .95rem; color: var(--ink); display: block; margin-top: .15rem; }
+.word .note { font-size: .78rem; color: var(--ink-faint); display: block; margin-top: .2rem; line-height: 1.5; }
+
+/* তালিকা */
+.points { list-style: none; padding: 0; margin: 0; display: grid; gap: .65rem; }
+.points li {
+  font-family: var(--prose); font-size: 1.04rem; line-height: 1.85;
+  padding-inline-start: 2rem; position: relative;
+}
+.points li::before {
+  content: counter(list-item); position: absolute; inset-inline-start: 0; top: .35em;
+  font-family: var(--ui); font-size: .72rem; font-weight: 700; color: var(--green-deep);
+  background: var(--green-tint); border-radius: 50%;
+  width: 1.4rem; height: 1.4rem; display: grid; place-items: center; line-height: 1;
+}
+.points { counter-reset: list-item; }
+.points li { counter-increment: list-item; }
+
+.points.plain li { padding-inline-start: 1.4rem; }
+.points.plain li::before {
+  content: ''; width: .42rem; height: .42rem; background: var(--green);
+  border-radius: 50%; top: .8em; inset-inline-start: .35rem;
+}
+
+/* হাদীস / উদ্ধৃতি */
+.quote {
+  font-family: var(--prose); font-size: 1.04rem; line-height: 1.9;
+  background: var(--surface-alt); border-inline-start: 3px solid var(--green);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  padding: .9rem 1.1rem; margin: 0 0 .75rem;
+}
+.quote .cite {
+  display: block; font-family: var(--ui); font-size: .82rem; color: var(--ink-faint); margin-top: .45rem;
+}
+
+/* সম্পর্কিত আয়াত */
+.related-list { list-style: none; padding: 0; margin: 0; display: grid; gap: .5rem; }
+.related-list a {
+  display: flex; gap: .6rem; align-items: baseline;
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-sm);
+  padding: .6rem .8rem; text-decoration: none; color: inherit;
+}
+.related-list a:hover { border-color: var(--green); background: var(--green-tint); }
+.related-list .ref { font-size: .8rem; font-weight: 600; color: var(--green-deep); flex: none; }
+.related-list .txt { font-family: var(--prose); font-size: .97rem; color: var(--ink-soft); }
+
+/* সূত্র */
+.sources { list-style: none; padding: 0; margin: 0; display: grid; gap: .4rem; font-size: .92rem; }
+.sources li { color: var(--ink-soft); padding-inline-start: 1.2rem; position: relative; }
+.sources li::before { content: '↗'; position: absolute; inset-inline-start: 0; color: var(--ink-faint); font-size: .85em; }
+
+.tags { display: flex; flex-wrap: wrap; gap: .35rem; margin-top: .6rem; }
+.tag {
+  font-size: .78rem; color: var(--ink-soft); background: var(--surface-alt);
+  border-radius: 999px; padding: .15rem .6rem; text-decoration: none;
+}
+.tag:hover { background: var(--green-tint); color: var(--green-deep); }
+
+.verified {
+  font-size: .82rem; color: var(--ink-faint); margin-top: 1.5rem;
+  padding-top: 1rem; border-top: 1px solid var(--line-soft);
+}
+
+/* পরবর্তী / পূর্ববর্তী */
+.pager { display: flex; gap: .6rem; justify-content: space-between; margin-top: 2rem; }
+.pager a {
+  flex: 1; background: var(--surface); border: 1px solid var(--line);
+  border-radius: var(--radius-sm); padding: .7rem .9rem; text-decoration: none; color: inherit;
+  font-size: .9rem;
+}
+.pager a:hover { border-color: var(--green); background: var(--green-tint); }
+.pager a small { display: block; font-size: .74rem; color: var(--ink-faint); }
+.pager a.next { text-align: end; }
+
+/* ---------- হোম ---------- */
+
+.hero {
+  background: linear-gradient(180deg, var(--green-tint), var(--surface));
+  border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 2rem 1.75rem; margin-bottom: 2rem; text-align: center;
+}
+.hero .bismillah {
+  font-family: var(--arabic); direction: rtl; font-size: 1.7rem;
+  color: var(--green-deep); line-height: 2.2; margin: 0 0 .5rem;
+}
+.hero h1 { margin-bottom: .4rem; }
+.hero p { max-width: 40rem; margin-inline: auto; color: var(--ink-soft); }
+.hero-actions { display: flex; gap: .6rem; justify-content: center; flex-wrap: wrap; margin-top: 1.2rem; }
+.btn-primary {
+  background: var(--green); border-color: var(--green); color: #fff; font-weight: 600;
+}
+.btn-primary:hover { background: var(--green-deep); border-color: var(--green-deep); color: #fff; }
+
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr)); gap: .75rem; margin-bottom: 2rem; }
+.stat { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-sm); padding: .9rem 1rem; text-align: center; }
+.stat b { display: block; font-size: 1.6rem; font-weight: 700; color: var(--green-deep); line-height: 1.2; }
+.stat span { font-size: .82rem; color: var(--ink-faint); }
+
+.section-head { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; margin: 2rem 0 .9rem; }
+.section-head h2 { margin: 0; }
+.section-head a { font-size: .88rem; text-decoration: none; }
+.section-head a:hover { text-decoration: underline; }
+
+/* ---------- ফাঁকা অবস্থা ---------- */
+
+.empty {
+  text-align: center; padding: 3rem 1.5rem;
+  background: var(--surface); border: 1px dashed var(--line); border-radius: var(--radius);
+}
+.empty .mark { font-family: var(--arabic); font-size: 2.2rem; color: var(--green); opacity: .5; display: block; margin-bottom: .5rem; }
+.empty h2 { font-size: 1.15rem; }
+.empty p { color: var(--ink-faint); max-width: 30rem; margin-inline: auto; }
+
+/* ---------- সার্চ ফলাফল ---------- */
+
+mark { background: #fdf0c8; color: inherit; border-radius: 3px; padding: 0 .1em; }
+.result-count { font-size: .9rem; color: var(--ink-faint); margin-bottom: 1rem; }
+
+/* ---------- টোস্ট ---------- */
+
+.toast {
+  position: fixed; inset-block-end: 1.25rem; inset-inline: 0;
+  margin-inline: auto; width: max-content; max-width: calc(100% - 2rem);
+  background: var(--ink); color: #fff; font-size: .9rem;
+  padding: .6rem 1.1rem; border-radius: 999px; box-shadow: var(--shadow);
+  z-index: 60; animation: toast-in .2s ease;
+}
+@keyframes toast-in { from { opacity: 0; transform: translateY(6px); } }
+
+/* ---------- ফুটার ---------- */
+
+.site-footer {
+  border-top: 1px solid var(--line); background: var(--surface-alt);
+  padding: 1.75rem 0; margin-top: 2rem;
+}
+.footer-note { font-size: .87rem; color: var(--ink-soft); max-width: 48rem; margin: 0 0 .75rem; }
+.footer-meta { display: flex; gap: 1rem; flex-wrap: wrap; font-size: .84rem; color: var(--ink-faint); margin: 0; }
+
+/* ---------- ছাপা ---------- */
+
+@media print {
+  .site-header, .site-footer, .ayah-actions, .pager, .skip-link, .toast { display: none !important; }
+  body { background: #fff; font-size: 12pt; }
+  .ayah-hero, .panel, .card { box-shadow: none; border-color: #ccc; }
+  a { color: inherit; text-decoration: none; }
+}

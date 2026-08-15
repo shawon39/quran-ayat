@@ -1,0 +1,27 @@
+name: কনটেন্ট যাচাই
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: প্রতিটি আয়াত-ফাইলের গঠন পরীক্ষা
+        run: node scripts/validate-content.mjs
+
+      - name: data/verses.json হালনাগাদ আছে কি না
+        run: |
+          node scripts/build-content.mjs
+          if ! git diff --quiet -- data/verses.json; then
+            echo "::error::data/verses.json পুরনো — 'npm run build' চালিয়ে কমিট করুন।"
+            git --no-pager diff --stat -- data/verses.json
+            exit 1
+          fi

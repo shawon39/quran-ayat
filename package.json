@@ -1,0 +1,15 @@
+{
+  "name": "quran-ayat",
+  "version": "1.0.0",
+  "private": true,
+  "description": "আয়াত — কুরআনের গুরুত্বপূর্ণ আয়াতের বাংলা অর্থ ও বিস্তারিত ব্যাখ্যার সংগ্রহ",
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build-content.mjs",
+    "surahs": "node scripts/build-surahs.mjs",
+    "check": "node scripts/validate-content.mjs",
+    "sources": "node scripts/fetch-sources.mjs",
+    "dev": "node --version && python3 -m http.server 8080"
+  },
+  "license": "MIT"
+}
