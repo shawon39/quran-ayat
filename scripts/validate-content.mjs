@@ -12,6 +12,16 @@ const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const isStr = (x) => typeof x === 'string' && x.trim().length > 0;
 const isArrOf = (x, fn) => Array.isArray(x) && x.every(fn);
 
+/** সূরার মোট আয়াত সংখ্যা — নম্বর সীমার বাইরে গেলে তিলাওয়াতও পাওয়া যাবে না। */
+const ayahCounts = (() => {
+  try {
+    const { surahs } = JSON.parse(readFileSync(join(ROOT, 'data/surahs.json'), 'utf8'));
+    return new Map(surahs.map((s) => [s.number, s.ayahCount]));
+  } catch {
+    return null;   // data/surahs.json এখনো তৈরি হয়নি — এই পরীক্ষা বাদ
+  }
+})();
+
 /** @returns {string[]} সমস্যার তালিকা — ফাঁকা মানে সব ঠিক আছে */
 export function validateVerse(v, file = '') {
   const e = [];
@@ -21,6 +31,15 @@ export function validateVerse(v, file = '') {
   req(Number.isInteger(v.ayah) && v.ayah >= 1, 'ayah পূর্ণসংখ্যা হতে হবে');
   if (v.ayahEnd !== undefined) {
     req(Number.isInteger(v.ayahEnd) && v.ayahEnd >= v.ayah, 'ayahEnd ≥ ayah হতে হবে');
+  }
+
+  const total = ayahCounts?.get(v.surah);
+  if (total) {
+    const last = v.ayahEnd ?? v.ayah;
+    if (v.ayah > total || last > total) {
+      e.push(`এই সূরায় মোট ${total}টি আয়াত — ayah/ayahEnd তার বেশি হতে পারে না`
+        + ' (নাহলে তিলাওয়াতের ফাইলও পাওয়া যাবে না)');
+    }
   }
 
   req(isStr(v.arabic), 'arabic (মূল আরবি পাঠ) লাগবে');

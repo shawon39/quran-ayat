@@ -59,9 +59,14 @@ node scripts/fetch-sources.mjs 2 255
 node scripts/validate-content.mjs
 node scripts/build-content.mjs
 
-# ৪) দেখে নিন
-python3 -m http.server 8080     # → http://localhost:8080
+# ৪) দেখে নিন — এবং তিলাওয়াত বাজিয়ে শুনে নিন
+python3 -m http.server 8080     # → http://localhost:8080/#/ayat/2/255
 ```
+
+**তিলাওয়াত যাচাই বাধ্যতামূলক।** অডিওর জন্য JSON-এ কোনো ক্ষেত্র লিখতে হয় না — `surah` ও
+`ayah` থেকেই তা বেরিয়ে আসে। তবু নতুন আয়াত যোগ করার পর তার পাতায় গিয়ে প্লে বোতামে চাপ দিয়ে
+শুনে নিন যে ঠিক ওই আয়াতটিই বাজছে; `ayahEnd` দিলে শুরু থেকে শেষ পর্যন্ত সবগুলো।
+বিস্তারিত `docs/CONTENT-GUIDE.md`-এর *তিলাওয়াত* অংশে।
 
 ফাইলের নাম সবসময় `<সূরা ৩ অঙ্ক>-<আয়াত ৩ অঙ্ক>.json` — যেমন `002-255.json`, `013-028.json`।
 
