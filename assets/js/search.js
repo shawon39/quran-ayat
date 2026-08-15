@@ -55,6 +55,10 @@ export function search(query, verses) {
     .sort((a, b) => b.s - a.s || a.v.surah - b.v.surah || a.v.ayah - b.v.ayah)
     .map((x) => x.v);
 
+  // "13-28", "13.28", "surah 2:255"-এর মতো লেখায় রেফারেন্স ঠিকই ধরা পড়ে (parseRef),
+  // কিন্তু শব্দ-মেলানো স্কোরিং সেই বানানে মেলে না — তাই সরাসরি সবার উপরে বসিয়ে দেওয়া হয়।
+  if (exact && !items.includes(exact)) items.unshift(exact);
+
   return { items, exact, ref };
 }
 
