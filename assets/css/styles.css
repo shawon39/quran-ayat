@@ -26,7 +26,8 @@
   --shadow:       0 1px 2px rgba(35,32,26,.05), 0 6px 20px rgba(35,32,26,.05);
   --shadow-sm:    0 1px 2px rgba(35,32,26,.06);
 
-  --ui:    'Hind Siliguri', 'Noto Sans Bengali', 'SolaimanLipi', system-ui, sans-serif;
+  /* Noto Sans Bengali আগে — এর সংখ্যার (০-৯) আকৃতি Hind Siliguri-র চেয়ে স্পষ্ট, বিশেষত ১ */
+  --ui:    'Noto Sans Bengali', 'Hind Siliguri', 'SolaimanLipi', system-ui, sans-serif;
   --prose: 'Tiro Bangla', 'Noto Serif Bengali', 'Hind Siliguri', 'SolaimanLipi', serif;
   --arabic: 'Amiri Quran', 'Scheherazade New', 'Traditional Arabic', serif;
 
