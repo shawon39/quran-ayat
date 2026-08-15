@@ -3,6 +3,7 @@
 import { bn, esc, inline, stripMarks, refText, ayahHref } from './util.js';
 import { favourites } from './store.js';
 import { search, excerpt, highlight } from './search.js';
+import { RECITER, recitation } from './audio.js';
 
 const STAR = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.6l2.6 5.3 5.8.8-4.2 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8L3.6 9.7l5.8-.8z"/></svg>';
 
@@ -10,6 +11,9 @@ const ICON = {
   copy: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 012-2h10"/></svg>',
   link: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 13a5 5 0 007 0l2-2a5 5 0 00-7-7l-1 1"/><path d="M14 11a5 5 0 00-7 0l-2 2a5 5 0 007 7l1-1"/></svg>',
   book: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5a2 2 0 012-2h12v18H6a2 2 0 01-2-2z"/><path d="M8 3v18"/></svg>',
+  play: '<svg class="icon-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5l11 6.5-11 6.5z"/></svg>',
+  pause: '<svg class="icon-pause" viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="5" width="3.6" height="14" rx="1.2"/><rect x="13.4" y="5" width="3.6" height="14" rx="1.2"/></svg>',
+  repeat: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11V9a4 4 0 014-4h9"/><path d="M14 2.5L17.5 5 14 7.5"/><path d="M20 13v2a4 4 0 01-4 4H7"/><path d="M10 21.5L6.5 19 10 16.5"/></svg>',
 };
 
 /** তারকা বোতাম। data-fav-এ আয়াতের আইডি থাকে; ক্লিক ধরা হয় app.js-এ। */
@@ -18,6 +22,38 @@ function starButton(v) {
   return `<button class="star-btn" type="button" data-fav="${esc(v.id)}"
     aria-pressed="${on}" title="${on ? 'প্রিয় তালিকা থেকে সরান' : 'প্রিয় তালিকায় রাখুন'}"
     aria-label="${on ? 'প্রিয় তালিকা থেকে সরান' : 'প্রিয় তালিকায় রাখুন'}">${STAR}</button>`;
+}
+
+/**
+ * তিলাওয়াতের বার। শুরুতে সবসময় থেমে থাকা অবস্থায় আঁকা হয় —
+ * বাজতে থাকলে app.js এর paintRecitation() লেখা ও অবস্থা হালনাগাদ করে।
+ */
+function recitationBar(v) {
+  const to = v.ayahEnd && v.ayahEnd > v.ayah ? v.ayahEnd : v.ayah;
+  const count = to - v.ayah + 1;
+  const idle = count > 1
+    ? `${bn(count)}টি আয়াত একটানা`
+    : `আয়াত ${bn(v.ayah)} · ${RECITER.style}`;
+  const on = recitation.isRepeat();
+
+  return `
+  <div class="recitation" data-recite="${v.surah}:${v.ayah}:${to}" data-status="idle"
+       data-recite-idle="${esc(idle)}">
+    <button class="recite-play" type="button" data-recite-toggle
+            aria-pressed="false" aria-label="তিলাওয়াত শুনুন" title="তিলাওয়াত শুনুন">
+      ${ICON.play}${ICON.pause}
+    </button>
+    <div class="recite-body">
+      <span class="recite-label">তিলাওয়াত — ক্বারী ${esc(RECITER.bn)}</span>
+      <div class="recite-track"><span class="recite-fill" data-recite-fill></span></div>
+      <div class="recite-status">
+        <span class="recite-note" data-recite-note aria-live="polite">${esc(idle)}</span>
+        <span class="recite-time" data-recite-time></span>
+      </div>
+    </div>
+    <button class="recite-repeat" type="button" data-recite-repeat aria-pressed="${on}"
+            aria-label="বারবার বাজান" title="বারবার বাজান">${ICON.repeat}</button>
+  </div>`;
 }
 
 /** তালিকায় দেখানো একটি আয়াতের কার্ড। */
@@ -215,6 +251,8 @@ export function ayahPage(db, surah, ayah) {
 
       ${v.arabic ? `<p class="arabic" dir="rtl" lang="ar">${esc(v.arabic)}</p>` : ''}
 
+      ${recitationBar(v)}
+
       ${v.uccharon ? `<p class="uccharon"><b>উচ্চারণ</b>${esc(v.uccharon)}</p>` : ''}
 
       ${main ? `<div class="translation">
@@ -375,6 +413,10 @@ export function aboutPage(db) {
       <li><strong>তাফসীর</strong> — তাফসীর ইবনে কাসীর, তাফসীর ফাতহুল মাজীদ,
           আল-মুখতাসার ফী তাফসীরিল কুরআনিল কারীম, এবং আসবাবুন নুযূল (আল-ওয়াহিদী)।</li>
       <li><strong>হাদীস</strong> — সহীহ বুখারী, সহীহ মুসলিম ও অন্যান্য স্বীকৃত সংকলন, নম্বরসহ।</li>
+      <li><strong>তিলাওয়াত</strong> — ক্বারী ${esc(RECITER.bn)}
+          (<span dir="rtl" lang="ar">${esc(RECITER.arabic)}</span>), ${esc(RECITER.style)}।
+          অডিও এই সাইটে রাখা নেই;
+          আল-কুরআন ক্লাউড ও এভরিআয়াহ-র প্রকাশ্য সংগ্রহ থেকে সরাসরি বাজে।</li>
     </ul>
     <p>একটি ব্যাখ্যা তখনই যোগ করা হয়, যখন অন্তত দুটি স্বতন্ত্র প্রামাণ্য উৎসে তা মিলে যায়।
        মতভেদ থাকলে সেটিও লিখে দেওয়া হয় — এক পক্ষকে একমাত্র মত হিসেবে দেখানো হয় না।</p>
@@ -384,6 +426,9 @@ export function aboutPage(db) {
     <ul class="points plain">
       <li>উপরের বাক্সে <strong>সূরার নাম</strong>, <strong>“২:২৫৫” ধরনের নম্বর</strong>, কিংবা
           অনুবাদ/ব্যাখ্যার <strong>যেকোনো শব্দ</strong> লিখে খুঁজুন।</li>
+      <li>আয়াতের পাতায় আরবি পাঠের নিচের বোতামে চাপ দিলে <strong>তিলাওয়াত</strong> শোনা যায় —
+          ক্বারী ${esc(RECITER.bn)}-র কণ্ঠে। পাশের গোল বোতামটি চাপলে আয়াতটি
+          <strong>বারবার</strong> বাজে, মুখস্থ করার জন্য।</li>
       <li><strong>সূরা</strong> পাতা থেকে যেকোনো সূরায় ঢুকে নির্দিষ্ট আয়াত নম্বরে যেতে পারবেন।</li>
       <li>তারকা চিহ্নে চাপ দিলে আয়াতটি <strong>প্রিয়</strong> তালিকায় জমা হয় — এই ব্রাউজারেই থাকে।</li>
       <li>কি-বোর্ডে <strong>/</strong> চাপলে সরাসরি খোঁজার ঘরে যাওয়া যায়।</li>

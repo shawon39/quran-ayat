@@ -73,6 +73,12 @@ export function toast(msg) {
   toastTimer = setTimeout(() => { el.hidden = true; }, 2400);
 }
 
+/** সেকেন্ড → বাংলা সময়: ৭৫ → "১:১৫" */
+export function clock(sec) {
+  const t = Number.isFinite(sec) && sec > 0 ? Math.floor(sec) : 0;
+  return `${bn(Math.floor(t / 60))}:${bn(String(t % 60).padStart(2, '0'))}`;
+}
+
 /** আয়াতের রেফারেন্স বাংলায়: {surah:2, ayah:255} → "২:২৫৫" */
 export function refText(v) {
   const a = v.ayahEnd && v.ayahEnd !== v.ayah ? `${bn(v.ayah)}–${bn(v.ayahEnd)}` : bn(v.ayah);

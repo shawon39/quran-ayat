@@ -2,7 +2,8 @@
 
 import { load } from './data.js';
 import { favourites } from './store.js';
-import { bn, toast, debounce, refText } from './util.js';
+import { recitation, init as initRecitation } from './audio.js';
+import { bn, clock, toast, debounce, refText } from './util.js';
 import * as views from './views.js';
 
 const view = document.getElementById('view');
@@ -83,6 +84,7 @@ function render() {
   document.title = title;
   markNav(head);
   wirePage(head);
+  paintRecitation(recitation.state());
 }
 
 function markNav(head) {
@@ -166,6 +168,22 @@ document.addEventListener('click', async (e) => {
     if (!v) return;
     const url = `${location.origin}${location.pathname}#/ayat/${v.surah}/${v.ayah}`;
     await writeClipboard(url, 'লিংক কপি হয়েছে');
+    return;
+  }
+
+  const playBtn = e.target.closest('[data-recite-toggle]');
+  if (playBtn) {
+    const box = playBtn.closest('[data-recite]');
+    if (!box) return;
+    const [surah, from, to] = box.dataset.recite.split(':').map(Number);
+    recitation.toggle(surah, from, to);
+    return;
+  }
+
+  const repeatBtn = e.target.closest('[data-recite-repeat]');
+  if (repeatBtn) {
+    const on = recitation.toggleRepeat();
+    toast(on ? 'বারবার বাজবে' : 'একবারই বাজবে');
   }
 });
 
@@ -185,6 +203,53 @@ async function writeClipboard(text, okMsg) {
     ta.remove();
   }
 }
+
+/* ───────────── তিলাওয়াতের বার আঁকা ───────────── */
+
+/** একই লেখা বারবার বসালে স্ক্রিন-রিডার আবার পড়ে ফেলে — তাই বদলালেই কেবল লিখি। */
+function setText(el, text) {
+  if (el && el.textContent !== text) el.textContent = text;
+}
+
+/** বারের নিচের ছোট লেখাটি — এই বারটিই বাজছে কি না তার উপর নির্ভর করে। */
+function noteFor(box, st, mine) {
+  if (!mine) return box.dataset.reciteIdle ?? '';
+  if (st.status === 'error') return 'অডিও আনা গেল না — সংযোগ দেখে আবার চেষ্টা করুন';
+  if (st.status === 'loading') return 'আসছে…';
+  if (st.total > 1) return `আয়াত ${bn(st.ayah)} · ${bn(st.index + 1)}/${bn(st.total)}`;
+  return st.status === 'paused' ? 'থেমে আছে' : 'বাজছে…';
+}
+
+function paintRecitation(st) {
+  for (const box of document.querySelectorAll('[data-recite]')) {
+    const mine = box.dataset.recite === st.key;
+    const status = mine ? st.status : 'idle';
+    box.dataset.status = status;
+
+    const btn = box.querySelector('[data-recite-toggle]');
+    if (btn) {
+      const on = status === 'playing' || status === 'loading';
+      const label = on ? 'তিলাওয়াত থামান' : 'তিলাওয়াত শুনুন';
+      btn.setAttribute('aria-pressed', String(on));
+      btn.setAttribute('aria-label', label);
+      btn.title = label;
+    }
+
+    const fill = box.querySelector('[data-recite-fill]');
+    if (fill) {
+      const pct = mine && st.duration ? Math.min(100, (st.position / st.duration) * 100) : 0;
+      fill.style.width = `${pct}%`;
+    }
+
+    setText(box.querySelector('[data-recite-time]'),
+      mine && st.duration ? `${clock(st.position)} / ${clock(st.duration)}` : '');
+    setText(box.querySelector('[data-recite-note]'), noteFor(box, st, mine));
+
+    box.querySelector('[data-recite-repeat]')?.setAttribute('aria-pressed', String(st.repeat));
+  }
+}
+
+recitation.onChange(paintRecitation);
 
 searchForm?.addEventListener('submit', (e) => {
   e.preventDefault();
@@ -216,6 +281,7 @@ favourites.onChange(updateFavCount);
 
 window.addEventListener('hashchange', () => {
   surahListState = { filter: '', only: surahListState.only };
+  recitation.stop();   // অন্য পাতায় গেলে নিয়ন্ত্রণের বোতামটাই আর থাকে না
   render();
   window.scrollTo({ top: 0, behavior: 'instant' in window ? 'instant' : 'auto' });
   document.getElementById('main')?.focus({ preventScroll: true });
@@ -228,6 +294,7 @@ updateFavCount();
 
 load().then((data) => {
   db = data;
+  initRecitation(db.surahs);
   const footer = document.getElementById('footer-count');
   if (footer) {
     footer.textContent = `${bn(db.verses.length)}টি আয়াত`

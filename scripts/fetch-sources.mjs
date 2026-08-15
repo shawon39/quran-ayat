@@ -7,7 +7,14 @@
  *
  * এতে কোনো কনটেন্ট লেখা হয় না; শুধু উৎস দেখানো হয়। ব্যাখ্যা মানুষ/সম্পাদক লেখেন,
  * এবং content/verses/*.json-এ প্রতিটি দাবির সাথে sources[] যুক্ত থাকে।
+ *
+ * শেষে তিলাওয়াতের ঠিকানাও দেখায় — নতুন আয়াত যোগ করার সময় শুনে যাচাই করা বাধ্যতামূলক।
  */
+import { readFileSync } from 'node:fs';
+import { resolve, dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const RAW = 'https://raw.githubusercontent.com';
 
 /** অনুবাদ ও আরবি মূল পাঠ — fawazahmed0/quran-api */
@@ -65,6 +72,24 @@ out.links = {
   qurancomplex: `https://qurancomplex.gov.sa/`,
 };
 
+/** তিলাওয়াত — assets/js/audio.js যে ঠিকানাগুলো বাজায়, হুবহু সেগুলোই। */
+out.recitation = { reciter: 'মিশারী রাশিদ আল-আফাসী', urls: recitationUrls(+surah, +ayah) };
+
+function recitationUrls(s, a) {
+  const pad3 = (n) => String(n).padStart(3, '0');
+  const urls = [];
+  try {
+    const { surahs } = JSON.parse(readFileSync(join(ROOT, 'data/surahs.json'), 'utf8'));
+    let n = 0;
+    for (const x of surahs) { if (x.number === s) { n += a; break; } n += x.ayahCount; }
+    urls.push(`https://cdn.islamic.network/quran/audio/128/ar.alafasy/${n}.mp3`);
+  } catch {
+    /* data/surahs.json না থাকলে শুধু দ্বিতীয় ঠিকানাটাই দেখাই */
+  }
+  urls.push(`https://everyayah.com/data/Alafasy_128kbps/${pad3(s)}${pad3(a)}.mp3`);
+  return urls;
+}
+
 if (flags.includes('--json')) {
   console.log(JSON.stringify(out, null, 2));
 } else {
@@ -72,4 +97,7 @@ if (flags.includes('--json')) {
   for (const [, v] of Object.entries(out.texts)) console.log(`── ${v.label}\n${v.text}\n`);
   for (const [, v] of Object.entries(out.tafsirs)) console.log(`── ${v.label}\n${v.text}\n`);
   console.log(`── লিংক\n${Object.values(out.links).join('\n')}\n`);
+  console.log(`── তিলাওয়াত — ক্বারী ${out.recitation.reciter}`);
+  console.log('   (নতুন আয়াত যোগ করার পর একবার শুনে মিলিয়ে নিন)');
+  console.log(`${out.recitation.urls.map((u) => '   ' + u).join('\n')}\n`);
 }
