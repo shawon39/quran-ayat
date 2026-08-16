@@ -39,6 +39,9 @@ function render() {
       if (a === undefined) {
         html = views.surahList(db, surahListState);
         title = 'সূরা তালিকা — আয়াত';
+      } else if (a === views.SURAH_SAVED) {
+        html = views.surahList(db, surahListState);
+        title = 'যেসব সূরায় আয়াত আছে — আয়াত';
       } else {
         const n = Number(a);
         html = views.surahPage(db, n);
@@ -47,6 +50,11 @@ function render() {
       break;
 
     case 'ayat': {
+      if (a === undefined) {          // #/ayat — পুরো সংগ্রহ এক পাতায়
+        html = views.allVersesPage(db);
+        title = 'সংরক্ষিত আয়াত — আয়াত';
+        break;
+      }
       const s = Number(a), v = Number(b);
       html = views.ayahPage(db, s, v);
       const surah = db.bySurahNumber.get(s);
@@ -66,8 +74,13 @@ function render() {
       break;
 
     case 'bishoy':
-      html = views.tagPage(db, a ?? '');
-      title = `${a ?? ''} — বিষয়`;
+      if (a === undefined) {          // #/bishoy — সব বিষয়ের সূচি
+        html = views.allTagsPage(db);
+        title = 'সব বিষয় — আয়াত';
+      } else {
+        html = views.tagPage(db, a);
+        title = `${a} — বিষয়`;
+      }
       break;
 
     case 'about':
@@ -97,8 +110,25 @@ function markNav(head) {
 
 /* ───────────── পাতাভিত্তিক ইভেন্ট ───────────── */
 
+/** সূরা তালিকার পাতা কি না — `#/surah` এবং `#/surah/সংরক্ষিত` দুটোই। */
+function isSurahListRoute() {
+  const { parts } = currentRoute();
+  return parts[0] === 'surah' && (parts.length === 1 || parts[1] === views.SURAH_SAVED);
+}
+
+/**
+ * পাতা বদলালে সূরা তালিকার অবস্থা ঠিকানা থেকেই নেওয়া হয় —
+ * `#/surah/সংরক্ষিত` হলে ছাঁকা তালিকা, `#/surah` হলে সবসময় পুরো ১১৪টি।
+ * পাতার ভেতরের চিপ ও ছাঁকনির ঘর ঠিকানা বদলায় না, কেবল দেখানোটা বদলায়।
+ */
+function applyRouteState() {
+  const { parts } = currentRoute();
+  const only = parts[0] === 'surah' && parts[1] === views.SURAH_SAVED ? 'saved' : 'all';
+  surahListState = { filter: '', only };
+}
+
 function wirePage(head) {
-  if (head === 'surah' && currentRoute().parts.length === 1) {
+  if (isSurahListRoute()) {
     const filter = document.getElementById('surah-filter');
     filter?.addEventListener('input', debounce((e) => {
       surahListState.filter = e.target.value;
@@ -280,7 +310,7 @@ function updateFavCount(list) {
 favourites.onChange(updateFavCount);
 
 window.addEventListener('hashchange', () => {
-  surahListState = { filter: '', only: surahListState.only };
+  applyRouteState();
   recitation.stop();   // অন্য পাতায় গেলে নিয়ন্ত্রণের বোতামটাই আর থাকে না
   render();
   window.scrollTo({ top: 0, behavior: 'instant' in window ? 'instant' : 'auto' });
@@ -295,6 +325,7 @@ updateFavCount();
 load().then((data) => {
   db = data;
   initRecitation(db.surahs);
+  applyRouteState();   // সরাসরি #/surah/সংরক্ষিত খুললেও ছাঁকনি ঠিক থাকে
   const footer = document.getElementById('footer-count');
   if (footer) {
     footer.textContent = `${bn(db.verses.length)}টি আয়াত`
