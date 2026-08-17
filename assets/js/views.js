@@ -288,11 +288,87 @@ export function ayahPage(db, surah, ayah) {
   const prev = list[idx - 1], next = list[idx + 1];
   const [main, ...others] = v.translations ?? [];
 
+  /**
+   * প্রতিটি বিভাগ একবারই সাজানো হয়, তারপর একই তালিকা থেকে পাতার বিভাগগুলো
+   * ও পাশের সূচি — দুটোই তৈরি হয়। ফলে দুটো কখনো আলাদা হয়ে যায় না।
+   */
+  const parts = [];
+  const add = (heading, body) => parts.push({ id: `sec-${parts.length + 1}`, heading, body });
+
+  if (v.summary) {
+    add('এক নজরে', `<div class="panel"><div class="body"><p>${inline(v.summary)}</p></div></div>`);
+  }
+  if (v.words?.length) {
+    add('শব্দে শব্দে অর্থ', `<div class="words">${v.words.map((w) => `<div class="word">
+      <span class="ar" dir="rtl" lang="ar">${esc(w.ar)}</span>
+      <span class="bn">${esc(w.bn)}</span>
+      ${w.note ? `<span class="note">${esc(w.note)}</span>` : ''}
+    </div>`).join('')}</div>`);
+  }
+  for (const sec of v.sections ?? []) {
+    add(sec.heading, `<div class="panel"><div class="body">${(sec.body ?? [])
+      .map((p) => `<p>${inline(p)}</p>`).join('')}</div></div>`);
+  }
+  if (v.hadith?.length) {
+    add('সংশ্লিষ্ট হাদীস', v.hadith.map((h) => `<blockquote class="quote">${inline(h.text)}
+      <cite class="cite">— ${esc(h.source)}</cite></blockquote>`).join(''));
+  }
+  if (v.lessons?.length) {
+    add('মূল শিক্ষা', `<div class="panel"><ol class="points">${v.lessons
+      .map((l) => `<li>${inline(l)}</li>`).join('')}</ol></div>`);
+  }
+  if (v.application?.length) {
+    add('জীবনে যেভাবে কাজে লাগে', `<div class="panel"><ul class="points plain">${v.application
+      .map((l) => `<li>${inline(l)}</li>`).join('')}</ul></div>`);
+  }
+  if (v.related?.length) {
+    add('সম্পর্কিত আয়াত', `<ul class="related-list">${v.related.map((r) => `<li>
+      <a href="${r.href ?? `#/ayat/${r.surah}/${r.ayah}`}">
+        <span class="ref">${esc(r.ref)}</span><span class="txt">${esc(r.note)}</span></a></li>`).join('')}</ul>`);
+  }
+  if (v.sources?.length) {
+    add('সূত্র', `<div class="panel"><ul class="sources">${v.sources.map((src) => src.url
+      ? `<li><a href="${esc(src.url)}" rel="noopener">${esc(src.label)}</a></li>`
+      : `<li>${esc(src.label)}</li>`).join('')}</ul></div>`);
+  }
+
+  /* পাশের র‍্যাল — চওড়া পর্দায় দেখায়, ছোট পর্দায় CSS দিয়েই লুকানো থাকে। */
+  const rail = `
+  <aside class="ayah-rail" aria-label="এই আয়াতের সূচি ও তথ্য">
+    ${parts.length > 2 ? `<nav class="rail-card">
+      <h2 class="rail-title">এই পাতায়</h2>
+      <ul class="rail-toc">${parts.map((x) =>
+        `<li><button class="rail-link" type="button" data-jump="${x.id}">${esc(x.heading)}</button></li>`).join('')}</ul>
+    </nav>` : ''}
+
+    <div class="rail-card">
+      <h2 class="rail-title">আয়াতের তথ্য</h2>
+      <dl class="rail-facts">
+        <div><dt>সূরা</dt><dd><a href="#/surah/${surah}">${esc(s?.bn ?? '')}</a></dd></div>
+        <div><dt>আয়াত</dt><dd>${esc(refText(v))}</dd></div>
+        ${s ? `<div><dt>নাযিল</dt><dd>${esc(s.revelation)}</dd></div>
+        <div><dt>সূরার আয়াত</dt><dd>${bn(s.ayahCount)}টি</dd></div>` : ''}
+      </dl>
+    </div>
+
+    ${prev || next ? `<nav class="rail-card">
+      <h2 class="rail-title">সংগ্রহের ক্রমে</h2>
+      <div class="rail-steps">
+        ${prev ? `<a class="rail-step" href="${ayahHref(prev)}"><small>← আগের</small>
+          <span>${esc(prev.title || `আয়াত ${bn(prev.ayah)}`)}</span></a>` : ''}
+        ${next ? `<a class="rail-step" href="${ayahHref(next)}"><small>পরের →</small>
+          <span>${esc(next.title || `আয়াত ${bn(next.ayah)}`)}</span></a>` : ''}
+      </div>
+    </nav>` : ''}
+  </aside>`;
+
   return `
   <article class="ayah-page">
     <nav class="breadcrumb"><a href="#/">হোম</a><span>›</span><a href="#/surah">সূরা</a><span>›</span>
       <a href="#/surah/${surah}">${esc(s?.bn ?? '')}</a><span>›</span>আয়াত ${bn(v.ayah)}</nav>
 
+    <div class="ayah-grid">
+    <div class="ayah-col">
     <div class="ayah-hero">
       <div class="ayah-hero-top">
         <div class="titles">
@@ -329,43 +405,8 @@ export function ayahPage(db, surah, ayah) {
       </div>
     </div>
 
-    ${v.summary ? `<section class="section"><h2>এক নজরে</h2>
-      <div class="panel"><div class="body"><p>${inline(v.summary)}</p></div></div></section>` : ''}
-
-    ${v.words?.length ? `<section class="section"><h2>শব্দে শব্দে অর্থ</h2>
-      <div class="words">${v.words.map((w) => `<div class="word">
-        <span class="ar" dir="rtl" lang="ar">${esc(w.ar)}</span>
-        <span class="bn">${esc(w.bn)}</span>
-        ${w.note ? `<span class="note">${esc(w.note)}</span>` : ''}
-      </div>`).join('')}</div></section>` : ''}
-
-    ${(v.sections ?? []).map((sec) => `<section class="section">
-      <h2>${esc(sec.heading)}</h2>
-      <div class="panel"><div class="body">${(sec.body ?? []).map((p) => `<p>${inline(p)}</p>`).join('')}</div></div>
-    </section>`).join('')}
-
-    ${v.hadith?.length ? `<section class="section"><h2>সংশ্লিষ্ট হাদীস</h2>
-      ${v.hadith.map((h) => `<blockquote class="quote">${inline(h.text)}
-        <cite class="cite">— ${esc(h.source)}</cite></blockquote>`).join('')}</section>` : ''}
-
-    ${v.lessons?.length ? `<section class="section"><h2>মূল শিক্ষা</h2>
-      <div class="panel"><ol class="points">${v.lessons.map((l) => `<li>${inline(l)}</li>`).join('')}</ol></div>
-    </section>` : ''}
-
-    ${v.application?.length ? `<section class="section"><h2>জীবনে যেভাবে কাজে লাগে</h2>
-      <div class="panel"><ul class="points plain">${v.application.map((l) => `<li>${inline(l)}</li>`).join('')}</ul></div>
-    </section>` : ''}
-
-    ${v.related?.length ? `<section class="section"><h2>সম্পর্কিত আয়াত</h2>
-      <ul class="related-list">${v.related.map((r) => `<li><a href="${r.href ?? `#/ayat/${r.surah}/${r.ayah}`}">
-        <span class="ref">${esc(r.ref)}</span><span class="txt">${esc(r.note)}</span></a></li>`).join('')}</ul>
-    </section>` : ''}
-
-    ${v.sources?.length ? `<section class="section"><h2>সূত্র</h2>
-      <div class="panel"><ul class="sources">${v.sources.map((src) => src.url
-        ? `<li><a href="${esc(src.url)}" rel="noopener">${esc(src.label)}</a></li>`
-        : `<li>${esc(src.label)}</li>`).join('')}</ul></div>
-    </section>` : ''}
+    ${parts.map((x) => `<section class="section" id="${x.id}">
+      <h2>${esc(x.heading)}</h2>${x.body}</section>`).join('')}
 
     ${v.verifiedOn ? `<p class="verified">সর্বশেষ যাচাই: ${esc(v.verifiedOn)} ·
       একাধিক প্রামাণ্য অনুবাদ ও তাফসীর মিলিয়ে দেখা হয়েছে।</p>` : ''}
@@ -374,6 +415,9 @@ export function ayahPage(db, surah, ayah) {
       ${prev ? `<a href="${ayahHref(prev)}"><small>← আগের</small>${esc(prev.title || `আয়াত ${bn(prev.ayah)}`)}</a>` : '<span></span>'}
       ${next ? `<a class="next" href="${ayahHref(next)}"><small>পরের →</small>${esc(next.title || `আয়াত ${bn(next.ayah)}`)}</a>` : '<span></span>'}
     </nav>
+    </div>
+    ${rail}
+    </div>
   </article>`;
 }
 
