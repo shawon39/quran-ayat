@@ -110,6 +110,46 @@ function markNav(head) {
 
 /* ───────────── পাতাভিত্তিক ইভেন্ট ───────────── */
 
+/* ───────────── পাশের সূচি (আয়াতের পাতা) ───────────── */
+
+let sectionSpy = null;
+
+/**
+ * সূচির লিংকগুলো সাধারণ `#সেকশন` অ্যাংকর নয় — এই সাইটের রাউটিং হ্যাশ দিয়ে চলে,
+ * তাই অ্যাংকর দিলে রাউট ভেঙে যেত। বদলে বোতাম, আর স্ক্রল JS-এ।
+ */
+function wireRailToc() {
+  sectionSpy?.disconnect();
+  sectionSpy = null;
+
+  const links = [...document.querySelectorAll('[data-jump]')];
+  if (!links.length) return;
+
+  for (const btn of links) {
+    btn.addEventListener('click', () => {
+      document.getElementById(btn.dataset.jump)?.scrollIntoView({
+        behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+        block: 'start',
+      });
+    });
+  }
+
+  // কোন বিভাগটি চোখের সামনে আছে, সূচিতে সেটিই আলাদা দেখায়
+  const sections = links.map((b) => document.getElementById(b.dataset.jump)).filter(Boolean);
+  if (!sections.length || !('IntersectionObserver' in window)) return;
+
+  const seen = new Set();
+  sectionSpy = new IntersectionObserver((entries) => {
+    for (const e of entries) {
+      if (e.isIntersecting) seen.add(e.target.id); else seen.delete(e.target.id);
+    }
+    const first = sections.find((el) => seen.has(el.id));
+    for (const btn of links) btn.classList.toggle('active', btn.dataset.jump === first?.id);
+  }, { rootMargin: '-30% 0px -60% 0px' });
+
+  for (const el of sections) sectionSpy.observe(el);
+}
+
 /** সূরা তালিকার পাতা কি না — `#/surah` এবং `#/surah/সংরক্ষিত` দুটোই। */
 function isSurahListRoute() {
   const { parts } = currentRoute();
@@ -146,6 +186,8 @@ function wirePage(head) {
       });
     }
   }
+
+  wireRailToc();
 
   const jump = document.getElementById('jump-form');
   if (jump) {

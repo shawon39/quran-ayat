@@ -32,6 +32,18 @@
   --arabic: 'Amiri Quran', 'Scheherazade New', 'Traditional Arabic', serif;
 
   --wrap: 62rem;
+  /* পড়ার কলামের সর্বোচ্চ চওড়া — এর বেশি হলে চোখ লাইন হারায় */
+  --read: 46rem;
+
+  /*
+   * ফাঁকা জায়গার ধাপ। সব জায়গায় এই কটি মান ব্যবহার করলে পাতার ছন্দ
+   * এক থাকে — কোথাও ঠাসা, কোথাও বেশি ফাঁকা লাগে না।
+   */
+  --space-xs: .45rem;
+  --space-sm: .75rem;
+  --space-md: 1.1rem;
+  --space-lg: 1.6rem;
+  --space-xl: 2.25rem;
 }
 
 * { box-sizing: border-box; }
@@ -268,27 +280,85 @@ p { margin: 0 0 1rem; }
 
 /* ---------- আয়াত পাতা ---------- */
 
-.ayah-page { max-width: 46rem; }
+/*
+ * পড়ার কলাম + পাশের র‍্যাল। আগে .ayah-page-এ শুধু max-width ছিল, margin-inline
+ * ছিল না — তাই লেখা বাঁয়ে চেপে থাকত আর ডানে অনেকটা জায়গা মরে পড়ে থাকত।
+ * এখন চওড়া পর্দায় ওই জায়গাটাই সূচি ও তথ্যের কাজে লাগে, আর সরু পর্দায়
+ * কলামটি নিজেই মাঝখানে বসে।
+ */
+.ayah-grid { display: grid; gap: var(--space-lg); align-items: start; }
+.ayah-col { min-width: 0; max-width: var(--read); margin-inline: auto; width: 100%; }
+.ayah-rail { display: none; }
+
+@media (min-width: 1024px) {
+  .ayah-grid { grid-template-columns: minmax(0, 1fr) 14rem; }
+  .ayah-col { margin-inline: 0; }
+  .ayah-rail {
+    display: grid; gap: .75rem; align-content: start;
+    position: sticky; top: 5.25rem;
+    /* সূচি লম্বা হলে র‍্যাল নিজেই স্ক্রল করবে, পাতাকে টানবে না */
+    max-height: calc(100vh - 6.5rem); overflow-y: auto;
+    scrollbar-width: thin;
+  }
+}
 
 .ayah-hero {
   background: var(--surface);
   border: 1px solid var(--line);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
-  padding: 1.6rem 1.5rem 1.4rem;
-  margin-bottom: 1.5rem;
+  padding: var(--space-lg) var(--space-md) var(--space-md);
+  margin-bottom: var(--space-lg);
 }
-.ayah-hero-top { display: flex; align-items: flex-start; gap: .75rem; margin-bottom: 1rem; }
+.ayah-hero-top { display: flex; align-items: flex-start; gap: .75rem; margin-bottom: var(--space-md); }
 .ayah-hero-top .titles { flex: 1; min-width: 0; }
-.ayah-title { font-size: 1.45rem; margin: 0 0 .2rem; }
-.ayah-ref { font-size: .9rem; color: var(--ink-faint); }
+.ayah-title { font-size: clamp(1.25rem, 1.05rem + .8vw, 1.5rem); margin: 0 0 .2rem; }
+.ayah-ref { font-size: .9rem; color: var(--ink-faint); margin: 0; }
 
 .arabic {
   font-family: var(--arabic); direction: rtl; text-align: right;
-  font-size: clamp(1.5rem, 1.1rem + 1.8vw, 2rem); line-height: 2.35;
-  color: var(--ink); margin: 0 0 1.1rem;
-  padding-bottom: 1.1rem; border-bottom: 1px solid var(--line-soft);
+  font-size: clamp(1.4rem, 1.05rem + 1.6vw, 2rem); line-height: 2.3;
+  color: var(--ink); margin: 0 0 var(--space-md);
+  padding-bottom: var(--space-md); border-bottom: 1px solid var(--line-soft);
 }
+
+/* ---------- পাশের র‍্যাল ---------- */
+
+.rail-card {
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: var(--radius-sm); padding: .85rem .9rem;
+}
+.rail-title {
+  font-size: .72rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--ink-faint); margin: 0 0 .6rem;
+}
+.rail-toc { list-style: none; margin: 0; padding: 0; display: grid; gap: .1rem; }
+.rail-link {
+  display: block; width: 100%; text-align: start;
+  font-family: var(--ui); font-size: .85rem; line-height: 1.45; color: var(--ink-soft);
+  background: none; border: 0; border-inline-start: 2px solid var(--line);
+  padding: .3rem 0 .3rem .6rem; cursor: pointer;
+  transition: color .15s ease, border-color .15s ease;
+}
+.rail-link:hover { color: var(--green-deep); border-inline-start-color: var(--green); }
+.rail-link.active { color: var(--green-deep); font-weight: 600; border-inline-start-color: var(--green); }
+
+.rail-facts { margin: 0; display: grid; gap: .45rem; font-size: .84rem; }
+.rail-facts > div { display: flex; justify-content: space-between; gap: .6rem; align-items: baseline; }
+.rail-facts dt { color: var(--ink-faint); flex: none; }
+.rail-facts dd { margin: 0; color: var(--ink); text-align: end; min-width: 0; }
+.rail-facts a { text-decoration: none; }
+.rail-facts a:hover { text-decoration: underline; }
+
+.rail-steps { display: grid; gap: .4rem; }
+.rail-step {
+  display: block; text-decoration: none; color: inherit;
+  border: 1px solid var(--line); border-radius: var(--radius-sm);
+  padding: .45rem .6rem; transition: border-color .15s ease, background .15s ease;
+}
+.rail-step:hover { border-color: var(--green); background: var(--green-tint); }
+.rail-step small { display: block; font-size: .7rem; color: var(--ink-faint); margin-bottom: .1rem; }
+.rail-step span { font-size: .84rem; line-height: 1.4; display: block; }
 
 /* ---------- তিলাওয়াত ---------- */
 
@@ -296,7 +366,7 @@ p { margin: 0 0 1rem; }
   display: flex; align-items: center; gap: .85rem;
   background: var(--green-tint); border: 1px solid #cfe0d5;
   border-radius: var(--radius-sm); padding: .7rem .85rem;
-  margin: 0 0 1.1rem;
+  margin: 0 0 var(--space-md);
 }
 .recitation[data-status="error"] { background: var(--gold-tint); border-color: #e6d3a4; }
 
@@ -355,15 +425,27 @@ p { margin: 0 0 1rem; }
   .recite-label { font-size: .7rem; }
 }
 
+/* ছোট পর্দায় ফাঁকগুলো একটু গুটিয়ে আনা — নইলে অল্প লেখার জন্য বেশি স্ক্রল করতে হয় */
+@media (max-width: 640px) {
+  main { padding: 1.25rem 0 2.75rem; }
+  .ayah-hero { padding: var(--space-md) var(--space-sm) var(--space-sm); border-radius: var(--radius-sm); }
+  .ayah-hero-top { margin-bottom: var(--space-sm); }
+  .section { margin-bottom: var(--space-lg); }
+  .panel { padding: var(--space-sm) .85rem; }
+  .page-head { margin-bottom: var(--space-lg); }
+  .uccharon { padding: .7rem .85rem; }
+  .quote { padding: .75rem .9rem; }
+}
+
 .uccharon {
   font-family: var(--prose); font-size: 1rem; color: var(--ink-soft);
   background: var(--surface-alt); border-radius: var(--radius-sm);
-  padding: .8rem 1rem; margin: 0 0 1.1rem;
+  padding: .85rem 1rem; margin: 0 0 var(--space-md);
 }
 .uccharon b { display: block; font-family: var(--ui); font-size: .74rem; font-weight: 600;
   letter-spacing: .07em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: .25rem; }
 
-.translation { margin: 0 0 1rem; }
+.translation { margin: 0 0 var(--space-md); }
 .translation .label {
   font-size: .74rem; font-weight: 600; letter-spacing: .07em; text-transform: uppercase;
   color: var(--ink-faint); display: block; margin-bottom: .3rem;
@@ -372,9 +454,13 @@ p { margin: 0 0 1rem; }
   font-family: var(--prose); font-size: 1.14rem; line-height: 1.95; color: var(--ink);
 }
 .translation.secondary .text { font-size: 1rem; color: var(--ink-soft); }
-.translation + .translation { padding-top: .9rem; border-top: 1px dashed var(--line); }
+.translation + .translation { padding-top: var(--space-md); border-top: 1px dashed var(--line); }
 
-.ayah-actions { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1.2rem; padding-top: 1.1rem; border-top: 1px solid var(--line-soft); }
+.ayah-actions {
+  display: flex; flex-wrap: wrap; gap: .5rem;
+  margin-top: var(--space-md); padding-top: var(--space-md);
+  border-top: 1px solid var(--line-soft);
+}
 .btn {
   font-family: var(--ui); font-size: .87rem; font-weight: 500;
   display: inline-flex; align-items: center; gap: .4rem;
@@ -387,10 +473,10 @@ p { margin: 0 0 1rem; }
 
 /* বিভাগ */
 
-.section { margin: 0 0 1.4rem; }
+.section { margin: 0 0 var(--space-xl); scroll-margin-top: 5.5rem; }
 .section > h2 {
   display: flex; align-items: center; gap: .55rem;
-  font-size: 1.14rem; margin-bottom: .7rem; color: var(--green-deep);
+  font-size: 1.14rem; margin-bottom: var(--space-sm); color: var(--green-deep);
 }
 .section > h2::before {
   content: ''; width: .3rem; height: 1.05em; border-radius: 3px;
@@ -404,7 +490,7 @@ p { margin: 0 0 1rem; }
 
 .panel {
   background: var(--surface); border: 1px solid var(--line);
-  border-radius: var(--radius); padding: 1.1rem 1.25rem;
+  border-radius: var(--radius); padding: var(--space-md) 1.25rem;
 }
 
 /* শব্দে শব্দে অর্থ */
@@ -465,7 +551,7 @@ p { margin: 0 0 1rem; }
 .sources li { color: var(--ink-soft); padding-inline-start: 1.2rem; position: relative; }
 .sources li::before { content: '↗'; position: absolute; inset-inline-start: 0; color: var(--ink-faint); font-size: .85em; }
 
-.tags { display: flex; flex-wrap: wrap; gap: .35rem; margin-top: .6rem; }
+.tags { display: flex; flex-wrap: wrap; gap: .35rem; margin-top: var(--space-md); }
 .tag {
   font-size: .78rem; color: var(--ink-soft); background: var(--surface-alt);
   border-radius: 999px; padding: .15rem .6rem; text-decoration: none;
