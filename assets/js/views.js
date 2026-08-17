@@ -86,6 +86,12 @@ function empty(title, body, action = '') {
     <h2>${esc(title)}</h2><p>${esc(body)}</p>${action}</div>`;
 }
 
+/**
+ * সূরা তালিকায় “যেখানে আয়াত আছে” ছাঁকনির ঠিকানা — `#/surah/সংরক্ষিত`।
+ * ঠিকানায় বাংলা শব্দ রাখা হলো, কারণ `#/bishoy/তাওহীদ`-ও একই রকম।
+ */
+export const SURAH_SAVED = 'সংরক্ষিত';
+
 /* ─────────────────────────── হোম ─────────────────────────── */
 
 export function home(db) {
@@ -105,14 +111,16 @@ export function home(db) {
   </section>
 
   <div class="stats">
-    <div class="stat"><b>${bn(db.verses.length)}</b><span>সংরক্ষিত আয়াত</span></div>
-    <div class="stat"><b>${bn(surahsCovered)}</b><span>সূরা ছোঁয়া হয়েছে</span></div>
-    <div class="stat"><b>${bn(db.tags.length)}</b><span>বিষয়</span></div>
-    <div class="stat"><b>${bn(favourites.count())}</b><span>আপনার প্রিয়</span></div>
+    <a class="stat" href="#/ayat"><b>${bn(db.verses.length)}</b><span>সংরক্ষিত আয়াত</span></a>
+    <a class="stat" href="#/surah/${encodeURIComponent(SURAH_SAVED)}"><b>${bn(surahsCovered)}</b><span>সূরা ছোঁয়া হয়েছে</span></a>
+    <a class="stat" href="#/bishoy"><b>${bn(db.tags.length)}</b><span>বিষয়</span></a>
+    <a class="stat" href="#/priyo"><b>${bn(favourites.count())}</b><span>আপনার প্রিয়</span></a>
   </div>
 
   ${db.tags.length ? `
-  <div class="section-head"><h2>বিষয় ধরে</h2></div>
+  <div class="section-head"><h2>বিষয় ধরে</h2>
+    ${db.tags.length > 14 ? '<a href="#/bishoy">সব বিষয় দেখুন</a>' : ''}
+  </div>
   <div class="toolbar">
     ${db.tags.slice(0, 14).map(([t, n]) =>
       `<a class="chip" href="#/bishoy/${encodeURIComponent(t)}">${esc(t)} <span class="muted">${bn(n)}</span></a>`).join('')}
@@ -128,6 +136,47 @@ export function home(db) {
   `;
 }
 
+/* ─────────────────────────── সব আয়াত এক জায়গায় ─────────────────────────── */
+
+export function allVersesPage(db) {
+  const list = [...db.verses].sort((a, b) => a.surah - b.surah || a.ayah - b.ayah);
+
+  return `
+  <nav class="breadcrumb"><a href="#/">হোম</a><span>›</span>সংরক্ষিত আয়াত</nav>
+
+  <div class="page-head">
+    <span class="eyebrow">পুরো সংগ্রহ</span>
+    <h1>সংরক্ষিত আয়াত</h1>
+    <p class="lede">এখন পর্যন্ত ${bn(list.length)}টি আয়াত যোগ করা হয়েছে, ${bn(db.bySurah.size)}টি সূরা থেকে।
+       নিচে কুরআনের ক্রম অনুসারে সবগুলো একসাথে দেওয়া হলো।</p>
+  </div>
+
+  ${list.length
+    ? verseList(list)
+    : empty('এখনো কোনো আয়াত যোগ করা হয়নি', 'প্রথম আয়াতটি যোগ হলে এখানে দেখা যাবে।')}
+  `;
+}
+
+/* ─────────────────────────── সব বিষয় ─────────────────────────── */
+
+export function allTagsPage(db) {
+  return `
+  <nav class="breadcrumb"><a href="#/">হোম</a><span>›</span>বিষয়</nav>
+
+  <div class="page-head">
+    <span class="eyebrow">সূচি</span>
+    <h1>সব বিষয়</h1>
+    <p class="lede">আয়াতগুলো ${bn(db.tags.length)}টি বিষয়ে ভাগ করা আছে; পাশের সংখ্যা বলছে ওই বিষয়ে
+       কতটি আয়াত রয়েছে। যেকোনো বিষয়ে চাপ দিলে সেগুলো একসাথে দেখা যাবে।</p>
+  </div>
+
+  ${db.tags.length ? `<div class="toolbar">
+    ${db.tags.map(([t, n]) => `<a class="chip" href="#/bishoy/${encodeURIComponent(t)}">
+      ${esc(t)} <span class="muted">${bn(n)}</span></a>`).join('')}
+  </div>` : empty('এখনো কোনো বিষয় নেই', 'আয়াত যোগ হলে তার বিষয়গুলো এখানে জমা হবে।')}
+  `;
+}
+
 /* ─────────────────────────── সূরা তালিকা ─────────────────────────── */
 
 export function surahList(db, { filter = '', only = 'all' } = {}) {
@@ -139,12 +188,17 @@ export function surahList(db, { filter = '', only = 'all' } = {}) {
       .join(' ').toLowerCase().includes(f);
   });
 
+  const saved = only === 'saved';
+
   return `
   <div class="page-head">
     <span class="eyebrow">সূচিপত্র</span>
-    <h1>১১৪টি সূরা</h1>
-    <p class="lede">যে সূরায় আয়াত সংরক্ষিত আছে সেগুলোর পাশে সংখ্যা দেখানো হয়েছে।
-       যেকোনো সূরায় ঢুকে নির্দিষ্ট আয়াত নম্বরেও যেতে পারবেন।</p>
+    <h1>${saved ? 'যেসব সূরায় আয়াত আছে' : '১১৪টি সূরা'}</h1>
+    <p class="lede">${saved
+      ? `${bn(db.bySurah.size)}টি সূরা থেকে আয়াত সংগ্রহে যোগ করা হয়েছে; পাশের সংখ্যা বলছে কোনটিতে কতটি।
+         পুরো তালিকা দেখতে নিচের “সব সূরা”-তে চাপ দিন।`
+      : `যে সূরায় আয়াত সংরক্ষিত আছে সেগুলোর পাশে সংখ্যা দেখানো হয়েছে।
+         যেকোনো সূরায় ঢুকে নির্দিষ্ট আয়াত নম্বরেও যেতে পারবেন।`}</p>
   </div>
 
   <div class="toolbar">
@@ -430,6 +484,10 @@ export function aboutPage(db) {
           ক্বারী ${esc(RECITER.bn)}-র কণ্ঠে। পাশের গোল বোতামটি চাপলে আয়াতটি
           <strong>বারবার</strong> বাজে, মুখস্থ করার জন্য।</li>
       <li><strong>সূরা</strong> পাতা থেকে যেকোনো সূরায় ঢুকে নির্দিষ্ট আয়াত নম্বরে যেতে পারবেন।</li>
+      <li>হোম পাতার <strong>সংখ্যার ঘরগুলোতে চাপ দেওয়া যায়</strong> —
+          <a href="#/ayat">সংরক্ষিত সব আয়াত</a>,
+          <a href="#/surah/${encodeURIComponent(SURAH_SAVED)}">যেসব সূরায় আয়াত আছে</a>,
+          <a href="#/bishoy">সব বিষয়</a> ও <a href="#/priyo">প্রিয় আয়াত</a> এক চাপেই খুলে যাবে।</li>
       <li>তারকা চিহ্নে চাপ দিলে আয়াতটি <strong>প্রিয়</strong> তালিকায় জমা হয় — এই ব্রাউজারেই থাকে।</li>
       <li>কি-বোর্ডে <strong>/</strong> চাপলে সরাসরি খোঁজার ঘরে যাওয়া যায়।</li>
     </ul>
