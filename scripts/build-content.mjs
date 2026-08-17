@@ -46,12 +46,24 @@ for (const v of verses) {
 
 verses.sort((a, b) => a.surah - b.surah || a.ayah - b.ayah);
 
-const today = new Date().toISOString().slice(0, 10);
+/**
+ * “সর্বশেষ হালনাগাদ” — কনটেন্ট থেকেই নেওয়া হয়, বিল্ড চালানোর দিন থেকে নয়।
+ *
+ * আগে এখানে আজকের তারিখ বসত। ফলে কোনো আয়াত যোগ বা বদল না করলেও প্রতিদিন
+ * data/verses.json বদলে যেত, আর CI (যেটি বিল্ড চালিয়ে ফাইলটি মিলিয়ে দেখে)
+ * পরদিন থেকেই অকারণে ফেল করত। এখন তারিখটি বদলায় কেবল কনটেন্ট বদলালে।
+ */
+const updatedAt = verses
+  .map((v) => v.addedOn ?? v.verifiedOn ?? '')
+  .filter(Boolean)
+  .sort()
+  .at(-1) ?? '';
+
 writeFileSync(
   join(ROOT, 'data/verses.json'),
   JSON.stringify({
     generatedBy: 'scripts/build-content.mjs',
-    generatedAt: today,
+    generatedAt: updatedAt,
     count: verses.length,
     verses,
   }, null, 2) + '\n',
